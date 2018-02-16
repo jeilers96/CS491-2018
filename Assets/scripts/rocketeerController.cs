@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class rocketeerController : ingameCharacter {
 	Rigidbody2D rigid2D;
-	public float sprintModifier = 3.0f;
+	
 	private ingameCharacter player;
+	
+	const float DEFAULT_SPRINT_MODIFIER = 3.0f;
 
 	// Use this for initialization
 	void Start () {
@@ -28,12 +30,12 @@ public class rocketeerController : ingameCharacter {
 			playerAction(rigid2D);
 		}
 		else if(Input.GetKeyUp(KeyCode.Space)) {
-			defaultPlayerState(rigid2D);
+			resetPlayerState(rigid2D);
 		}
 	}
 	
 	public override void playerAction(Rigidbody2D rigidBody) {
-		rigidBody.velocity = new Vector2(movementDirection * moveSpeed * sprintModifier, rigidBody.velocity.y);
+		moveSpeed *= DEFAULT_SPRINT_MODIFIER;
 		
 	}
 }

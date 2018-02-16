@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class ingameCharacter : MonoBehaviour {
 	//public float moveSpeed = 3.0f;
-	//public float jumpForce = 250.f;
+	//public float jumpForce = 250.0f;
 	public float moveSpeed;
 	public float jumpForce;
 	public Transform groundCheck;
@@ -14,10 +14,13 @@ public abstract class ingameCharacter : MonoBehaviour {
 	protected bool isGrounded = false;
 	protected float groundRadius = 0.2f;
 	
+	const float DEFAULT_MOVE_SPEED = 3.0f;
+	const float DEFAULT_JUMP_FORCE = 250.0f;
+	
 	// Use this for initialization
 	protected void Start () {
-		moveSpeed = 3.0f;
-		jumpForce = 250.0f;
+		moveSpeed = DEFAULT_MOVE_SPEED;
+		jumpForce = DEFAULT_JUMP_FORCE;
 	}
 	
 	// Update is called once per frame
@@ -36,7 +39,8 @@ public abstract class ingameCharacter : MonoBehaviour {
 	
 	public abstract void playerAction(Rigidbody2D rigidBody);
 	
-	protected void defaultPlayerState(Rigidbody2D rigidBody) {
-		rigidBody.velocity = new Vector2(movementDirection * moveSpeed, rigidBody.velocity.y);
+	protected void resetPlayerState(Rigidbody2D rigidBody) {
+		moveSpeed = DEFAULT_MOVE_SPEED;
+		jumpForce = DEFAULT_JUMP_FORCE;
 	}
 }
