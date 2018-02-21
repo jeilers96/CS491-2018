@@ -25,11 +25,22 @@ public class character_test_controller : MonoBehaviour {
 		
 		rigid2D.velocity = new Vector2(move * maxSpeed, rigid2D.velocity.y);
 		
+		if(Mathf.Abs(move) > 0 && grounded) {
+			GetComponent<Animator> ().SetBool ("walking",true);
+			GetComponent<Animator> ().SetBool ("jumping",false);
+		} else if(!grounded){
+			GetComponent<Animator> ().SetBool ("walking",false);
+			GetComponent<Animator> ().SetBool ("jumping",true);
+		} else{
+			GetComponent<Animator> ().SetBool ("walking",false);
+			GetComponent<Animator> ().SetBool ("jumping",false);
+		}
+		
 		if(move > 0 && !facingRight) {
 			flip();
 		} else if(move < 0 && facingRight){
 			flip ();
-		}
+		} 
 	}
 	
 	void Update(){
