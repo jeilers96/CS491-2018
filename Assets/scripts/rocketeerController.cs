@@ -30,12 +30,15 @@ public class rocketeerController : ingameCharacter {
 			playerAction(rigid2D);
 		}
 		else if(Input.GetKeyUp(KeyCode.Space)) {
-			resetPlayerState(rigid2D);
+			resetPlayerState();
 		}
 	}
 	
 	public override void playerAction(Rigidbody2D rigidBody) {
 		moveSpeed *= DEFAULT_SPRINT_MODIFIER;
-		
+	}
+	
+	public override void resetPlayerState() {
+		moveSpeed = DEFAULT_MOVE_SPEED;	
 	}
 }

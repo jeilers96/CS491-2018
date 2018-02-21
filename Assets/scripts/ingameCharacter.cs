@@ -14,8 +14,8 @@ public abstract class ingameCharacter : MonoBehaviour {
 	protected bool isGrounded = false;
 	protected float groundRadius = 0.2f;
 	
-	const float DEFAULT_MOVE_SPEED = 3.0f;
-	const float DEFAULT_JUMP_FORCE = 250.0f;
+	protected const float DEFAULT_MOVE_SPEED = 3.0f;
+	protected const float DEFAULT_JUMP_FORCE = 250.0f;
 	
 	// Use this for initialization
 	protected void Start () {
@@ -39,8 +39,5 @@ public abstract class ingameCharacter : MonoBehaviour {
 	
 	public abstract void playerAction(Rigidbody2D rigidBody);
 	
-	protected void resetPlayerState(Rigidbody2D rigidBody) {
-		moveSpeed = DEFAULT_MOVE_SPEED;
-		jumpForce = DEFAULT_JUMP_FORCE;
-	}
+	public abstract void resetPlayerState();
 }
