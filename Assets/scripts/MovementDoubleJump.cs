@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Movement : MonoBehaviour {
+public class MovementDoubleJump : MonoBehaviour {
 
 	public float speed;
 	public Vector3 jump;
@@ -22,21 +22,20 @@ public class Movement : MonoBehaviour {
 		jump = new Vector3(0.0f, 2.0f, 0.0f);
 		canDoubleJump = true;
 		isGrounded = true;
+		speed *= .01f;
 	}
 		
 	//make sure u replace "floor" with your gameobject name.on which player is standing
-	void OnCollisionEnter2D(){
-		print ("entering");
+	void OnCollisionEnter2D(Collision2D coll){
 		isGrounded = true;
 	}
 
 	//consider when character is jumping .. it will exit collision.
 	void OnCollisionExit2D(){
-		print ("exiting");
 		isGrounded = false;
 	}
 
-	void Update ()
+	void FixedUpdate ()
 	{
 		moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
 		moveDirection = transform.TransformDirection(moveDirection);
