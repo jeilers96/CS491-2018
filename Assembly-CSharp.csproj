@@ -67,6 +67,8 @@
      <Compile Include="Assets\scripts\ingameCharacter.cs" />
      <Compile Include="Assets\scripts\MovementDoubleJump.cs" />
      <Compile Include="Assets\scripts\Possibly useful stuff\CreateBuyableObject.cs" />
+     <Compile Include="Assets\scripts\Possibly useful stuff\GameController.cs" />
+     <Compile Include="Assets\scripts\Possibly useful stuff\GameControllerEditor.cs" />
      <Compile Include="Assets\scripts\Possibly useful stuff\LevelController.cs" />
      <Compile Include="Assets\scripts\Possibly useful stuff\LevelSelector.cs" />
      <Compile Include="Assets\scripts\Possibly useful stuff\LevelSelectorManager.cs" />

@@ -47,7 +47,7 @@ public class GoodJump : MonoBehaviour {
 			flip ();
 		} 
 		if (Input.GetButtonDown ("Jump")) {
-			rb.velocity = Vector2.up * jumpVelocity;
+			rb.velocity = Vector2.up * jumpVelocity * 2;
 		}
 
 		if (rb.velocity.y < 0) {
@@ -58,7 +58,6 @@ public class GoodJump : MonoBehaviour {
 	}
 
 	void flip() {
-
 		facingRight = !facingRight;
 		Vector3 theScale = transform.localScale;
 		theScale.x *= -1;
