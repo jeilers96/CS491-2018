@@ -53,6 +53,8 @@
   <ItemGroup>
      <Compile Include="Assets\scripts\AutoSpawningController.cs" />
      <Compile Include="Assets\scripts\bananaController.cs" />
+     <Compile Include="Assets\scripts\ButtonManager.cs" />
+     <Compile Include="Assets\scripts\CameraFollow.cs" />
      <Compile Include="Assets\scripts\character_test_controller.cs" />
      <Compile Include="Assets\scripts\characterMovement.cs" />
      <Compile Include="Assets\scripts\CreateTerrain.cs" />
@@ -61,8 +63,15 @@
      <Compile Include="Assets\scripts\Editors\CreateTerrainEditor.cs" />
      <Compile Include="Assets\scripts\Editors\GenerateLevelGridEditor.cs" />
      <Compile Include="Assets\scripts\GenerateLevelGrid.cs" />
+     <Compile Include="Assets\scripts\GoodJump.cs" />
      <Compile Include="Assets\scripts\ingameCharacter.cs" />
      <Compile Include="Assets\scripts\MovementDoubleJump.cs" />
+     <Compile Include="Assets\scripts\Possibly useful stuff\CreateBuyableObject.cs" />
+     <Compile Include="Assets\scripts\Possibly useful stuff\GameController.cs" />
+     <Compile Include="Assets\scripts\Possibly useful stuff\GameControllerEditor.cs" />
+     <Compile Include="Assets\scripts\Possibly useful stuff\LevelController.cs" />
+     <Compile Include="Assets\scripts\Possibly useful stuff\LevelSelector.cs" />
+     <Compile Include="Assets\scripts\Possibly useful stuff\LevelSelectorManager.cs" />
      <Compile Include="Assets\scripts\PreventCharacterFromStickingToWalls.cs" />
      <Compile Include="Assets\scripts\rocketeerController.cs" />
      <Compile Include="Assets\scripts\SpawingController.cs" />
