@@ -1,11 +1,6 @@
 fileFormatVersion: 2
-<<<<<<< HEAD:Assets/sprites/banana_idle.png.meta
-guid: 0257893a491bb7f43bb8fdf8cdc9c00d
-timeCreated: 1519244672
-=======
-guid: 8b27293a3e27d48a7a523887ae5d4a38
-timeCreated: 1519244989
->>>>>>> 8b785961728d7b074bff6a824c641c40ccb54794:Assets/sprites/banana_idle.png.meta
+guid: 92b6f3667f39c46e6bf5fccea852507a
+timeCreated: 1519958677
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName: {}
@@ -50,7 +45,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteBorder: {x: 16, y: 0, z: 72, w: 64}
   spritePixelsToUnits: 100
   alphaUsage: 1
   alphaIsTransparency: 1
