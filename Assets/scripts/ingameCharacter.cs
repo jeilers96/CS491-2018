@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public abstract class ingameCharacter : MonoBehaviour {
 	//public float moveSpeed = 3.0f;
@@ -9,6 +10,7 @@ public abstract class ingameCharacter : MonoBehaviour {
 	public float jumpForce;
 	public Transform groundCheck;
 	public LayerMask groundEntity;
+	public Object otherCharacter;
 	
 	protected float movementDirection;
 	protected bool isGrounded = false;
@@ -40,4 +42,10 @@ public abstract class ingameCharacter : MonoBehaviour {
 	public abstract void playerAction(Rigidbody2D rigidBody);
 	
 	public abstract void resetPlayerState();
+	
+	protected void swapCharacter(GameObject character) {
+		Vector2 characterPosition = new Vector2(transform.position.x, transform.position.y);
+		GameObject.Instantiate(otherCharacter, new Vector2(characterPosition.x, characterPosition.y), Quaternion.identity);
+		Destroy(gameObject);
+	}
 }
