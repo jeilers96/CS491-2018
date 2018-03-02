@@ -37,6 +37,10 @@ public class bananaController : ingameCharacter {
 			resetPlayerState();
 		}
 		
+		if(Input.GetKeyDown(KeyCode.E)) {
+			swapCharacter(gameObject);
+		}
+		
 		if(isGrabbing) {
 			raycastHit.collider.gameObject.transform.position = holdPoint.position;
 		}

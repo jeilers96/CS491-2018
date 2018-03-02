@@ -56,4 +56,13 @@ public class character_test_controller : MonoBehaviour {
         theScale.x *= -1;
         transform.localScale = theScale;
 	}
+	
+	void OnCollisionEnter2D(Collision2D other) {
+		 if(other.gameObject.name == "water" && this.gameObject.tag != "swimmer") {
+			GetComponent<SpriteRenderer>().enabled = false;
+			Application.LoadLevel ("swimmer_test_scene");
+			
+		 }
+	}
+	
 }

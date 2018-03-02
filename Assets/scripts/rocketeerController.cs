@@ -32,6 +32,10 @@ public class rocketeerController : ingameCharacter {
 		else if(Input.GetKeyUp(KeyCode.Space)) {
 			resetPlayerState();
 		}
+		
+		if(Input.GetKeyDown(KeyCode.E)) {
+			swapCharacter(gameObject);
+		}
 	}
 	
 	public override void playerAction(Rigidbody2D rigidBody) {
