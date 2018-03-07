@@ -18,9 +18,11 @@ public class GoodJump : MonoBehaviour {
 	public float jumpForce = 300f;
 
 	Rigidbody2D rb;
+	Animator animator; 
 
 	void Awake(){
 		rb = GetComponent<Rigidbody2D> ();
+		animator = GetComponent<Animator> ();
 	}
 	
 	// Update is called once per frame
@@ -31,14 +33,14 @@ public class GoodJump : MonoBehaviour {
 		rb.velocity = new Vector2(move * maxSpeed, rb.velocity.y);
 
 		if(Mathf.Abs(move) > 0 && grounded) {
-			GetComponent<Animator> ().SetBool ("walking",true);
-			GetComponent<Animator> ().SetBool ("jumping",false);
+			animator.SetBool ("walking",true);
+			animator.SetBool ("jumping",false);
 		} else if(!grounded){
-			GetComponent<Animator> ().SetBool ("walking",false);
-			GetComponent<Animator> ().SetBool ("jumping",true);
+			animator.SetBool ("walking",false);
+			animator.SetBool ("jumping",true);
 		} else{
-			GetComponent<Animator> ().SetBool ("walking",false);
-			GetComponent<Animator> ().SetBool ("jumping",false);
+			animator.SetBool ("walking",false);
+			animator.SetBool ("jumping",false);
 		}
 
 		if(move > 0 && !facingRight) {
