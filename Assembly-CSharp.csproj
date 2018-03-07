@@ -51,7 +51,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\parallax.cs" />
      <Compile Include="Assets\scripts\AutoSpawningController.cs" />
      <Compile Include="Assets\scripts\bananaController.cs" />
      <Compile Include="Assets\scripts\ButtonManager.cs" />
@@ -60,6 +59,9 @@
      <Compile Include="Assets\scripts\characterMovement.cs" />
      <Compile Include="Assets\scripts\CreateTerrain.cs" />
      <Compile Include="Assets\scripts\CycleSprites.cs" />
+     <Compile Include="Assets\scripts\door.cs" />
+     <Compile Include="Assets\scripts\doorTrigger.cs" />
+     <Compile Include="Assets\scripts\DoubleJumpCharacterController.cs" />
      <Compile Include="Assets\scripts\Editors\AutoSpawningControllerEditor.cs" />
      <Compile Include="Assets\scripts\Editors\CreateTerrainEditor.cs" />
      <Compile Include="Assets\scripts\Editors\GenerateLevelGridEditor.cs" />
@@ -67,6 +69,7 @@
      <Compile Include="Assets\scripts\GoodJump.cs" />
      <Compile Include="Assets\scripts\ingameCharacter.cs" />
      <Compile Include="Assets\scripts\MovementDoubleJump.cs" />
+     <Compile Include="Assets\scripts\parallax.cs" />
      <Compile Include="Assets\scripts\Possibly useful stuff\CreateBuyableObject.cs" />
      <Compile Include="Assets\scripts\Possibly useful stuff\GameController.cs" />
      <Compile Include="Assets\scripts\Possibly useful stuff\GameControllerEditor.cs" />
