@@ -86,10 +86,10 @@ TextureImporter:
       name: rocketeer_movement_0
       rect:
         serializedVersion: 2
-        x: 20
+        x: 40
         y: 0
-        width: 96
-        height: 100
+        width: 192
+        height: 200
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -100,10 +100,10 @@ TextureImporter:
       name: rocketeer_movement_1
       rect:
         serializedVersion: 2
-        x: 156
+        x: 312
         y: 0
-        width: 80
-        height: 110
+        width: 160
+        height: 220
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -114,10 +114,10 @@ TextureImporter:
       name: rocketeer_movement_2
       rect:
         serializedVersion: 2
-        x: 268
+        x: 536
         y: 0
-        width: 108
-        height: 103
+        width: 216
+        height: 206
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
