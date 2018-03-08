@@ -15,7 +15,7 @@ public abstract class ingameCharacter : MonoBehaviour {
 	protected bool isGrounded = false;
 	protected float groundRadius = 0.2f;
 	
-	protected const float DEFAULT_MOVE_SPEED = 3.0f;
+	protected const float DEFAULT_MOVE_SPEED = 8.0f;
 	protected const float DEFAULT_JUMP_FORCE = 250.0f;
 	
 	// Use this for initialization

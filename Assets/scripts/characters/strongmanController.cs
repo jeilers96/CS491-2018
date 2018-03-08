@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class bananaController : ingameCharacter {
-	Rigidbody2D rigid2D;
-	RaycastHit2D raycastHit;
-	
-	const float GRAB_DISTANCE = 2f;
-	
+public class strongmanController : ingameCharacter {
 	public Transform holdPoint;
 	
-	private ingameCharacter player;
+	private Rigidbody2D rigid2D;
+	private RaycastHit2D raycastHit;
+	
+	private const float GRAB_DISTANCE = 2f;
 	private bool isGrabbing;
 
 	// Use this for initialization

@@ -1,8 +1,8 @@
-﻿// using System.Collections;
-// using System.Collections.Generic;
-// using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-// public class characterSwapper : MonoBehaviour {
+public class characterSwapper : MonoBehaviour {
 	// public Object character1 = new Object();
 	// public Object character2 = new Object();
 	
@@ -21,4 +21,4 @@
 	// }
 	
 	
-// }
+}

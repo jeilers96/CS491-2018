@@ -96,10 +96,10 @@ TextureImporter:
       name: doublejumpguy2running-256_0
       rect:
         serializedVersion: 2
-        x: 32
+        x: 0
         y: 0
-        width: 192
-        height: 176
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -110,10 +110,10 @@ TextureImporter:
       name: doublejumpguy2running-256_1
       rect:
         serializedVersion: 2
-        x: 304
+        x: 256
         y: 0
-        width: 128
-        height: 192
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,10 +124,10 @@ TextureImporter:
       name: doublejumpguy2running-256_2
       rect:
         serializedVersion: 2
-        x: 536
+        x: 512
         y: 0
-        width: 168
-        height: 176
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
