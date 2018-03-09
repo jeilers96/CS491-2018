@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class doubleJumpCharacterController : ingameCharacter {
+public class DoubleJumpCharacterController : ingameCharacter {
 	private Rigidbody2D rigid2D;
 	private bool hasSecondJump;
 

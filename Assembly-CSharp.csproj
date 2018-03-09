@@ -52,13 +52,14 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\scripts\camera\CameraFollow.cs" />
-     <Compile Include="Assets\scripts\characters\bananaController.cs" />
      <Compile Include="Assets\scripts\characters\character_test_controller.cs" />
      <Compile Include="Assets\scripts\characters\characterSwapper.cs" />
      <Compile Include="Assets\scripts\characters\DoubleJumpCharacterController.cs" />
      <Compile Include="Assets\scripts\characters\ingameCharacter.cs" />
-     <Compile Include="Assets\scripts\characters\rocketeerController.cs" />
+     <Compile Include="Assets\scripts\characters\sprinterController.cs" />
      <Compile Include="Assets\scripts\characters\strongman.cs" />
+     <Compile Include="Assets\scripts\characters\strongmanController.cs" />
+     <Compile Include="Assets\scripts\characters\swimmerController.cs" />
      <Compile Include="Assets\scripts\Editors\AutoSpawningController.cs" />
      <Compile Include="Assets\scripts\Editors\AutoSpawningControllerEditor.cs" />
      <Compile Include="Assets\scripts\Editors\SpawingController.cs" />
