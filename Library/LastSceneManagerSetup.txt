@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/scenes/double jump man's world.unity
+- path: Assets/scenes/test_scene.unity
   isLoaded: 1
   isActive: 1
