@@ -66,6 +66,9 @@
      <Compile Include="Assets\scripts\menu\ButtonManager.cs" />
      <Compile Include="Assets\scripts\objects\door.cs" />
      <Compile Include="Assets\scripts\objects\doorTrigger.cs" />
+     <Compile Include="Assets\scripts\objects\platformTrigger.cs" />
+     <Compile Include="Assets\scripts\objects\rising_platform.cs" />
+     <Compile Include="Assets\scripts\objects\rising_platform_switchController.cs" />
      <Compile Include="Assets\scripts\objects\switchController.cs" />
      <Compile Include="Assets\scripts\Possibly useful stuff\CreateBuyableObject.cs" />
      <Compile Include="Assets\scripts\Possibly useful stuff\GameController.cs" />
