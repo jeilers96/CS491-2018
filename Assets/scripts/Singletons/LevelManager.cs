@@ -10,12 +10,13 @@ public class LevelManager : MonoBehaviour {
 	public Transform playerTwo;
 	public List<GameObject> playerOneCharacters;
 	public List<GameObject> playerTwoCharacters;
+	public List<Vector3> spawnPoints; //player2.x = player1.x - 2.5f
+	public int spawnPointIndex = 0;
 
 	/// <summary>
 	/// The player1 key codes in order of move left, move right, jump, swap, ability.
 	/// </summary>
-	public List<KeyCode> player1KeyCodes = new List<KeyCode>()
-	{
+	public List<KeyCode> player1KeyCodes = new List<KeyCode>(){
 		KeyCode.A, KeyCode.D, KeyCode.W, KeyCode.E, KeyCode.R
 	};
 
@@ -33,11 +34,36 @@ public class LevelManager : MonoBehaviour {
 		instance = this;
 	}
 
-	void PlayerOneSwap(GameObject newCharacter){
+	/// <summary>
+	/// Swap out player one reference transform to the new character the player is switching to
+	/// </summary>
+	/// <param name="newCharacter">New character.</param>
+	public void PlayerOneSwap(GameObject newCharacter){
 		playerOne = newCharacter.transform;
 	}
 
-	void PlayerTwoSwap(GameObject newCharacter){
+	/// <summary>
+	/// Swap out player two reference transform to the new character the player is switching to
+	/// </summary>
+	/// <param name="newCharacter">New character.</param>
+	public void PlayerTwoSwap(GameObject newCharacter){
 		playerTwo = newCharacter.transform;
 	}
+
+	public void RespawnPlayers(){
+		Camera.main.transform.position = spawnPoints [spawnPointIndex];
+		playerOne.position = spawnPoints [spawnPointIndex];
+		Vector3 playerTwoPosition = spawnPoints [spawnPointIndex];
+		playerTwoPosition.x -= 2.5f;
+		playerTwo.position = playerTwoPosition;
+	}
+
+	public void SetNewSpawnPoint(){
+		if (spawnPointIndex != spawnPoints.Count - 1) {
+			spawnPointIndex++;
+		}
+	}
+
+	//setup a method here to change spawn point of players on start or restart of level,
+	//and make an inspector class so this can be updated using a button in inspector
 }

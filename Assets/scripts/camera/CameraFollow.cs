@@ -5,26 +5,42 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour {
 
 	public float smoothSpeed = 0.125f;
-	public Vector3 offset;
+	public Vector3 offset = new Vector3(0.0f, 2.5f, -10.0f);
 
 	private LevelManager levelManager;
 
+	private Vector3 playerOneDesiredPosition;
+	private Vector3 playerTwoDesiredPosition;
+	private Vector3 playerRequiredPosition;
+
+	private Camera mainCamera;
+	private Vector3 averagePlayerPosition;
+
 	void Start(){
 		levelManager = LevelManager.instance;
+		mainCamera = Camera.main;
+		transform.position = levelManager.playerOne.position;
 	}
 
 	void FixedUpdate(){
-		if (levelManager.playerOne != null) {
-			Vector3 desiredPosition = levelManager.playerOne.position + offset;
-			Vector3 smoothedPosition = Vector3.Lerp (transform.position, desiredPosition, smoothSpeed);
-			transform.position = smoothedPosition;
-		}
+		levelManager.playerOne.position = KeepPlayerInCameraBounds (levelManager.playerOne);
+		levelManager.playerTwo.position = KeepPlayerInCameraBounds (levelManager.playerTwo);
 
-		if (levelManager.playerTwo != null) {
-			Vector3 player2RequiredPos = Camera.main.WorldToViewportPoint (levelManager.playerTwo.position);
-			player2RequiredPos.x = Mathf.Clamp01(player2RequiredPos.x);
-			player2RequiredPos.y = Mathf.Clamp01(player2RequiredPos.y);
-			levelManager.playerTwo.position = Camera.main.ViewportToWorldPoint(player2RequiredPos);
-		}
+		playerOneDesiredPosition = levelManager.playerOne.position + offset;
+		playerTwoDesiredPosition = levelManager.playerTwo.position + offset;
+		averagePlayerPosition = (playerOneDesiredPosition + playerTwoDesiredPosition) / 2;
+		transform.position = Vector3.Lerp (transform.position, averagePlayerPosition, smoothSpeed);;
+	}
+
+	/// <summary>
+	/// Keeps the given player within camera bounds.
+	/// </summary>
+	/// <returns>Vector3 between 0 and 1, 0 being the leftmost point of the camera.</returns>
+	/// <param name="player">Player.</param>
+	Vector3 KeepPlayerInCameraBounds(Transform player){
+		playerRequiredPosition = mainCamera.WorldToViewportPoint (player.position);
+		playerRequiredPosition.x = Mathf.Clamp01(playerRequiredPosition.x);
+		playerRequiredPosition.y = Mathf.Clamp01(playerRequiredPosition.y);
+		return Camera.main.ViewportToWorldPoint(playerRequiredPosition);
 	}
 }

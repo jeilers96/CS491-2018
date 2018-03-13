@@ -33,10 +33,8 @@ public abstract class ingameCharacter : MonoBehaviour {
 		moveSpeed = DEFAULT_MOVE_SPEED;
 		jumpForce = DEFAULT_JUMP_FORCE;
 		rigid2D.freezeRotation = true;
-		
-		if(GameObject.Find("LevelManager") != null) {
-			levelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
-		}
+		levelManager = LevelManager.instance;
+
 		readyPlayer(levelManager);
 	}
 	
@@ -82,9 +80,15 @@ public abstract class ingameCharacter : MonoBehaviour {
 	
 	public abstract void resetPlayerState();
 	
-	protected void swapCharacter(GameObject character) {
+	protected void swapCharacter() {
 		Vector2 characterPosition = new Vector2(transform.position.x, transform.position.y);
-		GameObject.Instantiate(otherCharacter, new Vector2(characterPosition.x, characterPosition.y), Quaternion.identity);
+		GameObject newCharacter = GameObject.Instantiate(otherCharacter, new Vector2(characterPosition.x, characterPosition.y), Quaternion.identity) as GameObject;
+		if (playerNum == 1) {
+			levelManager.PlayerOneSwap (newCharacter);
+		} else if (playerNum == 2) {
+			levelManager.PlayerTwoSwap (newCharacter);
+		}
+
 		Destroy(gameObject);
 	}
 	
@@ -137,8 +141,16 @@ public abstract class ingameCharacter : MonoBehaviour {
 	
 	protected void OnCollisionEnter2D(Collision2D other) {
 		 if(other.gameObject.name == "water" && this.gameObject.tag != "swimmer") {
-			GetComponent<SpriteRenderer>().enabled = false;
-			Application.LoadLevel ("double jump man's world");
+			//GetComponent<SpriteRenderer>().enabled = false;
+			//Application.LoadLevel ("double jump man's world");
+			levelManager.RespawnPlayers();
 		 }
+	}
+
+	protected void OnTriggerEnter2D(Collider2D other){
+		if (other.gameObject.tag == "SpawnPoint") {
+			levelManager.SetNewSpawnPoint ();
+			Destroy (other.gameObject);
+		}
 	}
 }

@@ -33,11 +33,11 @@ public class strongmanController : ingameCharacter {
 			playerAction(rigid2D);
 		}
 		else if(Input.GetKeyUp(keyAction)) {
-			resetPlayerState();
+			//resetPlayerState();
 		}
 		
 		if(Input.GetKeyDown(keySwap)) {
-			swapCharacter(gameObject);
+			swapCharacter();
 		}
 		
 		if(isGrabbing) {
@@ -50,14 +50,14 @@ public class strongmanController : ingameCharacter {
 	}
 	
 	public override void playerAction(Rigidbody2D rigidBody) {
-		if(!isGrabbing)
-		{
+		if (!isGrabbing) {
 			Physics2D.queriesStartInColliders = false;
 
-			if(raycastHit.collider != null && raycastHit.collider.tag == "heavy_box")
-			{
+			if (raycastHit.collider != null && raycastHit.collider.tag == "heavy_box") {
 				isGrabbing = true;
 			}
+		} else {
+			isGrabbing = false;
 		}
 	}
 	
