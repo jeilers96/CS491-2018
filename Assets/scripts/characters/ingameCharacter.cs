@@ -8,12 +8,21 @@ public abstract class ingameCharacter : MonoBehaviour {
 	public float jumpForce;
 	public Transform groundCheck;
 	public LayerMask groundEntity;
-	public Object otherCharacter;
 	
 	protected float movementDirection;
 	protected bool facingRight = true;
 	protected bool isGrounded = false;
 	protected float groundRadius = 0.2f;
+	
+	protected LevelManager levelManager;
+	protected int playerNum;
+	protected int characterNum;
+	protected Object otherCharacter;
+	protected KeyCode keyLeft;
+	protected KeyCode keyRight;
+	protected KeyCode keyJump;
+	protected KeyCode keyAction;
+	protected KeyCode keySwap;
 	
 	protected const float DEFAULT_MOVE_SPEED = 8.0f;
 	protected const float DEFAULT_JUMP_FORCE = 250.0f;
@@ -21,19 +30,30 @@ public abstract class ingameCharacter : MonoBehaviour {
 	// Use this for initialization
 	protected void Start () {
 		Rigidbody2D rigid2D = GetComponent<Rigidbody2D> ();
-		rigid2D.freezeRotation = true;
-		
 		moveSpeed = DEFAULT_MOVE_SPEED;
 		jumpForce = DEFAULT_JUMP_FORCE;
+		rigid2D.freezeRotation = true;
+		
+		if(GameObject.Find("LevelManager") != null) {
+			levelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
+		}
+		readyPlayer(levelManager);
 	}
 	
 	// Update is called once per frame
 	protected void FixedUpdate () {
-		isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundEntity); 
+		isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundEntity);
 	}
 	
-	protected void playerMove(Rigidbody2D rigidBody, float movementDirection) {
-		movementDirection = Input.GetAxis("Horizontal");
+	protected void playerMove(Rigidbody2D rigidBody) {
+		if(Input.GetKey(keyRight)) {
+			movementDirection = 1;
+		} else if(Input.GetKey(keyLeft)) {
+			movementDirection = -1;
+		} else {
+			movementDirection = 0;
+		}
+		
 		rigidBody.velocity = new Vector2(movementDirection * moveSpeed, rigidBody.velocity.y);
 		
 		if(Mathf.Abs(movementDirection) > 0 && isGrounded) {
@@ -68,6 +88,46 @@ public abstract class ingameCharacter : MonoBehaviour {
 		Destroy(gameObject);
 	}
 	
+	protected void readyPlayer(LevelManager levelManager) {
+		for(int i = 0; i < levelManager.playerOneCharacters.Count; i++) {
+			if(levelManager.playerOneCharacters[i].name.Equals(gameObject.name)) {
+				playerNum = 1;
+				characterNum = i;
+				break;
+			} else if(levelManager.playerTwoCharacters[i].name.Equals(gameObject.name)){
+				playerNum = 2;
+				characterNum = i;
+				break;
+			}
+		}
+		setNextCharacter(playerNum);
+		setKeyCodes(playerNum);
+	}
+	
+	protected void setNextCharacter(int playerNum) {
+		if(playerNum == 1) {
+			otherCharacter = levelManager.playerOneCharacters[(characterNum + 1) % levelManager.playerOneCharacters.Count];
+		} else if(playerNum == 2) {
+			otherCharacter = levelManager.playerTwoCharacters[(characterNum + 1) % levelManager.playerTwoCharacters.Count];
+		}
+	}
+	
+	protected void setKeyCodes(int playerNum) {
+		if(playerNum == 1) {
+			keyLeft = levelManager.player1KeyCodes[0];
+			keyRight = levelManager.player1KeyCodes[1];
+			keyJump = levelManager.player1KeyCodes[2];
+			keySwap = levelManager.player1KeyCodes[3];
+			keyAction = levelManager.player1KeyCodes[4];
+		} else if (playerNum == 2) {
+			keyLeft = levelManager.player2KeyCodes[0];
+			keyRight = levelManager.player2KeyCodes[1];
+			keyJump = levelManager.player2KeyCodes[2];
+			keySwap = levelManager.player2KeyCodes[3];
+			keyAction = levelManager.player2KeyCodes[4];
+		}
+	}
+	
 	protected void flip() {
 		facingRight = !facingRight;
         Vector3 theScale = transform.localScale;
@@ -78,8 +138,7 @@ public abstract class ingameCharacter : MonoBehaviour {
 	protected void OnCollisionEnter2D(Collision2D other) {
 		 if(other.gameObject.name == "water" && this.gameObject.tag != "swimmer") {
 			GetComponent<SpriteRenderer>().enabled = false;
-			Application.LoadLevel ("swimmer_test_scene");
-			
+			Application.LoadLevel ("double jump man's world");
 		 }
 	}
 }

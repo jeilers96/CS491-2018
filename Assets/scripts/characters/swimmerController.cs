@@ -7,6 +7,7 @@ public class swimmerController : ingameCharacter {
 
 	// Use this for initialization
 	void Start () {
+		gameObject.name = "swimmerCharacter";
 		base.Start();
 		rigid2D = GetComponent<Rigidbody2D>();
 	}
@@ -14,22 +15,22 @@ public class swimmerController : ingameCharacter {
 	// Update is called once per frame
 	void FixedUpdate () {
 		base.FixedUpdate();
-		playerMove(rigid2D, movementDirection);
+		playerMove(rigid2D);
 	}
 	
 	void Update () {
-		if(isGrounded && Input.GetKeyDown(KeyCode.UpArrow)) {
+		if(isGrounded && Input.GetKeyDown(keyJump)) {
 			playerJump(rigid2D);
 		}
 		
-		if(Input.GetKeyDown(KeyCode.Space)) {
+		if(Input.GetKeyDown(keyAction)) {
 			playerAction(rigid2D);
 		}
-		else if(Input.GetKeyUp(KeyCode.Space)) {
+		else if(Input.GetKeyUp(keyAction)) {
 			resetPlayerState();
 		}
 		
-		if(Input.GetKeyDown(KeyCode.E)) {
+		if(Input.GetKeyDown(keySwap)) {
 			swapCharacter(gameObject);
 		}
 	}
