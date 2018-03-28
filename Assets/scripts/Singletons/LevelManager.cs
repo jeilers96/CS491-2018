@@ -1,17 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour {
 
 	//static instance for other scripts to reference
 	public static LevelManager instance;
+	public bool retrieveSaveData = true;
 	public Transform playerOne;
 	public Transform playerTwo;
 	public List<GameObject> playerOneCharacters;
 	public List<GameObject> playerTwoCharacters;
-	public List<Vector3> spawnPoints; //player2.x = player1.x - 2.5f
+	public List<Vector3> spawnPoints;
 	public int spawnPointIndex = 0;
+
+	private SpawnPointManager spawnPointManager;
 
 	/// <summary>
 	/// The player1 key codes in order of move left, move right, jump, swap, ability.
@@ -32,6 +36,17 @@ public class LevelManager : MonoBehaviour {
 
 	void Awake(){
 		instance = this;
+		SetCameraAndPlayerPositions ();
+		if (retrieveSaveData) {
+			Load ();
+		}
+	}
+
+	void Start(){
+		spawnPointManager = SpawnPointManager.instance;
+		if (retrieveSaveData) {
+			spawnPointManager.Load ();
+		}
 	}
 
 	/// <summary>
@@ -51,6 +66,29 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	public void RespawnPlayers(){
+		Save ();
+		SceneManager.LoadScene ("double jump man's world");
+
+	}
+
+	public void SetNewSpawnPoint(){
+		if (spawnPointIndex != spawnPoints.Count - 1) {
+			spawnPointManager.spawnPointsActive [spawnPointIndex] = false;
+			spawnPointIndex++;
+		}
+	}
+
+	public void Save(){
+		SaveLoadManager.SaveLevelManager (this);
+		spawnPointManager.Save ();
+	}
+
+	public void Load(){
+		SaveLoadManager.LoadLevelManager (ref spawnPointIndex);
+		SetCameraAndPlayerPositions ();
+	}
+
+	void SetCameraAndPlayerPositions(){
 		Camera.main.transform.position = spawnPoints [spawnPointIndex];
 		playerOne.position = spawnPoints [spawnPointIndex];
 		Vector3 playerTwoPosition = spawnPoints [spawnPointIndex];
@@ -58,12 +96,10 @@ public class LevelManager : MonoBehaviour {
 		playerTwo.position = playerTwoPosition;
 	}
 
-	public void SetNewSpawnPoint(){
-		if (spawnPointIndex != spawnPoints.Count - 1) {
-			spawnPointIndex++;
-		}
+	public void DeleteSaveData(){
+		SaveLoadManager.DeleteLevelManagerSaveData ();
+		SaveLoadManager.DeleteSpawnPointsManagerSaveData ();
+		print ("Deleted: " + SaveLoadManager.LevelManagerFilePath + "\n"
+			+ SaveLoadManager.SpawnPointManagerFilePath);
 	}
-
-	//setup a method here to change spawn point of players on start or restart of level,
-	//and make an inspector class so this can be updated using a button in inspector
 }
