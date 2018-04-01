@@ -140,5 +140,10 @@ public abstract class ingameCharacter : MonoBehaviour {
 			GetComponent<SpriteRenderer>().enabled = false;
 			Application.LoadLevel ("double jump man's world");
 		 }
+		 
+		 if(other.gameObject.name == "laserBullet") {
+			GetComponent<SpriteRenderer>().enabled = false;
+			Application.LoadLevel ("speed_boost");
+		 }
 	}
 }
