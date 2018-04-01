@@ -33,7 +33,7 @@ public class sprinterController : ingameCharacter {
 		}
 		
 		if(Input.GetKeyDown(keySwap)) {
-			swapCharacter(gameObject);
+			swapCharacter();
 		}
 	}
 	

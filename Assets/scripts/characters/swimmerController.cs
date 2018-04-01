@@ -31,7 +31,7 @@ public class swimmerController : ingameCharacter {
 		}
 		
 		if(Input.GetKeyDown(keySwap)) {
-			swapCharacter(gameObject);
+			swapCharacter();
 		}
 	}
 	

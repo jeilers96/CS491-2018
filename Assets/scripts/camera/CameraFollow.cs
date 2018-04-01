@@ -5,26 +5,61 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour {
 
 	public float smoothSpeed = 0.125f;
-	public Vector3 offset;
+	public float maxCameraSize = 10f;
+	public float minCameraSize = 7.5f;
+	public Vector3 offset = new Vector3(0.0f, 2.5f, -10.0f);
 
 	private LevelManager levelManager;
 
+	private Vector3 playerOneDesiredPosition;
+	private Vector3 playerTwoDesiredPosition;
+	private Vector3 playerRequiredPosition;
+
+	private Camera mainCamera;
+	private Vector3 averagePlayerPosition;
+
 	void Start(){
 		levelManager = LevelManager.instance;
+		mainCamera = Camera.main;
+		transform.position = levelManager.playerOne.position;
 	}
 
 	void FixedUpdate(){
-		if (levelManager.playerOne != null) {
-			Vector3 desiredPosition = levelManager.playerOne.position + offset;
-			Vector3 smoothedPosition = Vector3.Lerp (transform.position, desiredPosition, smoothSpeed);
-			transform.position = smoothedPosition;
+		levelManager.playerOne.position = KeepPlayerInCameraBounds (levelManager.playerOne);
+		levelManager.playerTwo.position = KeepPlayerInCameraBounds (levelManager.playerTwo);
+
+		playerOneDesiredPosition = levelManager.playerOne.position + offset;
+		playerTwoDesiredPosition = levelManager.playerTwo.position + offset;
+		averagePlayerPosition = (playerOneDesiredPosition + playerTwoDesiredPosition) / 2;
+		transform.position = Vector3.Lerp (transform.position, averagePlayerPosition, smoothSpeed);;
+	}
+
+	/// <summary>
+	/// Keeps the given player within camera bounds.
+	/// </summary>
+	/// <returns>Vector3 between 0 and 1, 0 being the leftmost point of the camera.</returns>
+	/// <param name="player">Player.</param>
+	Vector3 KeepPlayerInCameraBounds(Transform player){
+		playerRequiredPosition = mainCamera.WorldToViewportPoint (player.position);
+
+		if ((playerRequiredPosition.x >= .9 || playerRequiredPosition.x <= .1 || playerRequiredPosition.y >= .9 || playerRequiredPosition.y <= .1) && mainCamera.orthographicSize < maxCameraSize) {
+			ChangeCameraSize (0.20f);
+		} else if ((playerRequiredPosition.x >= .35 || playerRequiredPosition.x <= .65 || playerRequiredPosition.y >= .35 || playerRequiredPosition.y <= .65) && mainCamera.orthographicSize > minCameraSize) {
+			ChangeCameraSize (-0.20f);
 		}
 
-		if (levelManager.playerTwo != null) {
-			Vector3 player2RequiredPos = Camera.main.WorldToViewportPoint (levelManager.playerTwo.position);
-			player2RequiredPos.x = Mathf.Clamp01(player2RequiredPos.x);
-			player2RequiredPos.y = Mathf.Clamp01(player2RequiredPos.y);
-			levelManager.playerTwo.position = Camera.main.ViewportToWorldPoint(player2RequiredPos);
-		}
+		playerRequiredPosition = mainCamera.WorldToViewportPoint (player.position);
+
+		//clamp between .05 and .95 instead of 0 and 1
+		playerRequiredPosition.x = Mathf.Clamp01(playerRequiredPosition.x);
+		playerRequiredPosition.y = Mathf.Clamp01(playerRequiredPosition.y);
+		return mainCamera.ViewportToWorldPoint(playerRequiredPosition);
+	}
+
+	private void ChangeCameraSize(float amount){
+		float size = mainCamera.orthographicSize;
+		Vector2 previousSize = new Vector2 (size, 0.0f);
+		Vector2 newSize = new Vector2 (size + amount, 0.0f);
+		mainCamera.orthographicSize = Vector2.Lerp (previousSize, newSize, smoothSpeed).x;
 	}
 }

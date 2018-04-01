@@ -31,7 +31,7 @@ public class DoubleJumpCharacterController : ingameCharacter {
 		}
 
 		if(Input.GetKeyDown(keySwap)) {
-			swapCharacter(gameObject);
+			swapCharacter();
 		}
 	}
 
