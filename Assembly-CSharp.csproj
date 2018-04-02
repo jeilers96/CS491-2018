@@ -71,6 +71,7 @@
      <Compile Include="Assets\scripts\objects\rising_platform.cs" />
      <Compile Include="Assets\scripts\objects\rising_platform_switchController.cs" />
      <Compile Include="Assets\scripts\objects\switchController.cs" />
+     <Compile Include="Assets\scripts\PlayerUIManager.cs" />
      <Compile Include="Assets\scripts\Possibly useful stuff\CreateBuyableObject.cs" />
      <Compile Include="Assets\scripts\Possibly useful stuff\GameController.cs" />
      <Compile Include="Assets\scripts\Possibly useful stuff\GameControllerEditor.cs" />

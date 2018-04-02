@@ -15,7 +15,11 @@ public class LevelManager : MonoBehaviour {
 	public List<Vector3> spawnPoints;
 	public int spawnPointIndex = 0;
 
+	public int PlayerOneIndex = 0;
+	public int PlayerTwoIndex = 0;
+
 	private SpawnPointManager spawnPointManager;
+	private PlayerUIManager playerUIManager;
 
 	/// <summary>
 	/// The player1 key codes in order of move left, move right, jump, swap, ability.
@@ -44,6 +48,7 @@ public class LevelManager : MonoBehaviour {
 
 	void Start(){
 		spawnPointManager = SpawnPointManager.instance;
+		playerUIManager = PlayerUIManager.instance;
 		if (retrieveSaveData) {
 			spawnPointManager.Load ();
 		}
@@ -55,6 +60,7 @@ public class LevelManager : MonoBehaviour {
 	/// <param name="newCharacter">New character.</param>
 	public void PlayerOneSwap(GameObject newCharacter){
 		playerOne = newCharacter.transform;
+		playerUIManager.UpdatePlayer1UI ();
 	}
 
 	/// <summary>
@@ -63,6 +69,7 @@ public class LevelManager : MonoBehaviour {
 	/// <param name="newCharacter">New character.</param>
 	public void PlayerTwoSwap(GameObject newCharacter){
 		playerTwo = newCharacter.transform;
+		playerUIManager.UpdatePlayer2UI ();
 	}
 
 	public void RespawnPlayers(){

@@ -12,7 +12,7 @@ public abstract class ingameCharacter : MonoBehaviour {
 	protected float movementDirection;
 	protected bool facingRight = true;
 	protected bool isGrounded = false;
-	protected float groundRadius = 0.2f;
+	protected float groundRadius = 0.1f;
 	
 	protected LevelManager levelManager;
 	protected int playerNum;
@@ -85,6 +85,9 @@ public abstract class ingameCharacter : MonoBehaviour {
 		GameObject newCharacter = GameObject.Instantiate(otherCharacter, new Vector2(characterPosition.x, characterPosition.y), Quaternion.identity) as GameObject;
 		if (playerNum == 1) {
 			levelManager.PlayerOneSwap (newCharacter);
+			for (int i = 0; i < levelManager.player1KeyCodes; i++) {
+
+			}
 		} else if (playerNum == 2) {
 			levelManager.PlayerTwoSwap (newCharacter);
 		}
@@ -110,9 +113,11 @@ public abstract class ingameCharacter : MonoBehaviour {
 	
 	protected void setNextCharacter(int playerNum) {
 		if(playerNum == 1) {
-			otherCharacter = levelManager.playerOneCharacters[(characterNum + 1) % levelManager.playerOneCharacters.Count];
+			int index = (characterNum + 1) % levelManager.playerOneCharacters.Count;
+			otherCharacter = levelManager.playerOneCharacters[index];
 		} else if(playerNum == 2) {
-			otherCharacter = levelManager.playerTwoCharacters[(characterNum + 1) % levelManager.playerTwoCharacters.Count];
+			int index = (characterNum + 1) % levelManager.playerTwoCharacters.Count;
+			otherCharacter = levelManager.playerTwoCharacters[index];
 		}
 	}
 	
