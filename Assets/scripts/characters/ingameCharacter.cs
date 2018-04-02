@@ -68,7 +68,7 @@ public abstract class ingameCharacter : MonoBehaviour {
 		if(movementDirection > 0 && !facingRight) {
 			flip();
 		} else if(movementDirection < 0 && facingRight){
-			flip ();
+			flip();
 		}
 	}
 	
@@ -148,7 +148,8 @@ public abstract class ingameCharacter : MonoBehaviour {
 		 
 		 if(other.gameObject.name == "laserBullet") {
 			GetComponent<SpriteRenderer>().enabled = false;
-			Application.LoadLevel ("speed_boost");
+			//Application.LoadLevel("speed_boost");
+			levelManager.RespawnPlayers();
 		 }
 	}
 
