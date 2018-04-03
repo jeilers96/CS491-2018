@@ -68,7 +68,7 @@ public abstract class ingameCharacter : MonoBehaviour {
 		if(movementDirection > 0 && !facingRight) {
 			flip();
 		} else if(movementDirection < 0 && facingRight){
-			flip ();
+			flip();
 		}
 	}
 	
@@ -148,6 +148,12 @@ public abstract class ingameCharacter : MonoBehaviour {
 		 if(other.gameObject.name == "water" && this.gameObject.tag != "swimmer") {
 			//GetComponent<SpriteRenderer>().enabled = false;
 			//Application.LoadLevel ("double jump man's world");
+			levelManager.RespawnPlayers();
+		 }
+		 
+		 if(other.gameObject.name == "laserBullet") {
+			GetComponent<SpriteRenderer>().enabled = false;
+			//Application.LoadLevel("speed_boost");
 			levelManager.RespawnPlayers();
 		 }
 	}
