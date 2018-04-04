@@ -81,14 +81,14 @@ public abstract class ingameCharacter : MonoBehaviour {
 	public abstract void resetPlayerState();
 	
 	protected void swapCharacter() {
+		print ("Player num = " + playerNum);
 		Vector2 characterPosition = new Vector2(transform.position.x, transform.position.y);
 		GameObject newCharacter = GameObject.Instantiate(otherCharacter, new Vector2(characterPosition.x, characterPosition.y), Quaternion.identity) as GameObject;
 		if (playerNum == 1) {
+			print ("Player 1 swapping to: " + newCharacter.name);
 			levelManager.PlayerOneSwap (newCharacter);
-			for (int i = 0; i < levelManager.player1KeyCodes; i++) {
-
-			}
 		} else if (playerNum == 2) {
+			print ("Player 2 swapping to: " + newCharacter.name);
 			levelManager.PlayerTwoSwap (newCharacter);
 		}
 
@@ -107,6 +107,7 @@ public abstract class ingameCharacter : MonoBehaviour {
 				break;
 			}
 		}
+
 		setNextCharacter(playerNum);
 		setKeyCodes(playerNum);
 	}

@@ -42,7 +42,7 @@ public class PlayerUIManager : MonoBehaviour {
 			characterThumbnails.Add (thumbnail);
 		}
 
-		//GeneratePlayerUI ();
+		GeneratePlayerUI ();
 
 		UpdatePlayer1UI ();
 		UpdatePlayer2UI ();
@@ -54,60 +54,54 @@ public class PlayerUIManager : MonoBehaviour {
 	}
 
 	private void GeneratePlayerUI(){
-		for (int i = 0; i < levelManager.playerOneCharacters.Count; i++) {
-			Transform player1UI = transform.GetChild (0);
-			if (player1UI != null) {
-				Transform player1Characters = player1UI.GetChild (0);
-				if (player1Characters != null) {
-					foreach (GameObject character in levelManager.playerOneCharacters) {
-						switch (character.name) {
-						case "doubleJumpCharacter":
-							CreatePlayerCell (player1Characters, 0);
-							break;
-						case "swimmerCharacter":
-							CreatePlayerCell (player1Characters, 1);
-							break;
-						case "strongmanCharacter":
-							CreatePlayerCell (player1Characters, 2);
-							break;
-						case "sprinterCharacter":
-							CreatePlayerCell (player1Characters, 3);
-							break;
-						default:
-							break;
-						}
-					}
-				}
-			}
-
-			Transform player2UI = transform.GetChild (1);
-			if (player2UI != null) {
-				Transform player2Characters = player2UI.GetChild (0);
-				if (player2Characters != null) {
-					foreach (GameObject character in levelManager.playerTwoCharacters) {
-						switch (character.name) {
-						case "doubleJumpCharacter":
-							CreatePlayerCell (player2Characters, 0);
-							break;
-						case "swimmerCharacter":
-							CreatePlayerCell (player2Characters, 1);
-							break;
-						case "strongmanCharacter":
-							CreatePlayerCell (player2Characters, 2);
-							break;
-						case "sprinterCharacter":
-							CreatePlayerCell (player2Characters, 3);
-							break;
-						default:
-							break;
-						}
+		Transform player1UI = transform.GetChild (0);
+		if (player1UI != null) {
+			Transform player1Characters = player1UI.GetChild (0);
+			if (player1Characters != null) {
+				foreach (GameObject character in levelManager.playerOneCharacters) {
+					switch (character.name) {
+					case "doubleJumpCharacter":
+						CreatePlayerCell (player1Characters, 0);
+						break;
+					case "swimmerCharacter":
+						CreatePlayerCell (player1Characters, 1);
+						break;
+					case "strongmanCharacter":
+						CreatePlayerCell (player1Characters, 2);
+						break;
+					case "sprinterCharacter":
+						CreatePlayerCell (player1Characters, 3);
+						break;
+					default:
+						break;
 					}
 				}
 			}
 		}
 
-		for (int i = 0; i < levelManager.playerTwoCharacters.Count; i++) {
-
+		Transform player2UI = transform.GetChild (1);
+		if (player2UI != null) {
+			Transform player2Characters = player2UI.GetChild (0);
+			if (player2Characters != null) {
+				foreach (GameObject character in levelManager.playerTwoCharacters) {
+					switch (character.name) {
+					case "doubleJumpCharacter":
+						CreatePlayerCell (player2Characters, 0);
+						break;
+					case "swimmerCharacter":
+						CreatePlayerCell (player2Characters, 1);
+						break;
+					case "strongmanCharacter":
+						CreatePlayerCell (player2Characters, 2);
+						break;
+					case "sprinterCharacter":
+						CreatePlayerCell (player2Characters, 3);
+						break;
+					default:
+						break;
+					}
+				}
+			}
 		}
 	}
 
@@ -180,7 +174,8 @@ public class PlayerUIManager : MonoBehaviour {
 	}
 
 	private void CreatePlayerCell(Transform playerUI, int index){
-		GameObject characterCell = Instantiate (CharacterCell) as GameObject;
+		GameObject characterCell = Instantiate (CharacterCell, playerUI) as GameObject;
+		characterCell.transform.localScale = new Vector3 (1.0f, 1.0f, 1.0f);
 		characterCell.transform.SetParent (playerUI);
 		Transform playerCellTransform = characterCell.transform.GetChild (0);
 		if (playerCellTransform != null) {
