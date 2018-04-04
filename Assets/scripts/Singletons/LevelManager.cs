@@ -14,8 +14,11 @@ public class LevelManager : MonoBehaviour {
 	public List<GameObject> playerTwoCharacters;
 	public List<Vector3> spawnPoints;
 	public int spawnPointIndex = 0;
+	public int PlayerOneIndex = 0;
+	public int PlayerTwoIndex = 0;
 
 	private SpawnPointManager spawnPointManager;
+	private PlayerUIManager playerUIManager;
 
 	/// <summary>
 	/// The player1 key codes in order of move left, move right, jump, swap, ability.
@@ -44,6 +47,7 @@ public class LevelManager : MonoBehaviour {
 
 	void Start(){
 		spawnPointManager = SpawnPointManager.instance;
+		playerUIManager = PlayerUIManager.instance;
 		if (retrieveSaveData) {
 			spawnPointManager.Load ();
 		}
@@ -55,6 +59,9 @@ public class LevelManager : MonoBehaviour {
 	/// <param name="newCharacter">New character.</param>
 	public void PlayerOneSwap(GameObject newCharacter){
 		playerOne = newCharacter.transform;
+		PlayerOneIndex++;
+		PlayerOneIndex %= playerOneCharacters.Count;
+		playerUIManager.UpdatePlayer1UI ();
 	}
 
 	/// <summary>
@@ -63,11 +70,14 @@ public class LevelManager : MonoBehaviour {
 	/// <param name="newCharacter">New character.</param>
 	public void PlayerTwoSwap(GameObject newCharacter){
 		playerTwo = newCharacter.transform;
+		PlayerTwoIndex++;
+		PlayerTwoIndex %= playerTwoCharacters.Count;
+		playerUIManager.UpdatePlayer2UI ();
 	}
 
 	public void RespawnPlayers(){
 		Save ();
-		SceneManager.LoadScene (SceneManager.GetActiveScene().name);
+		SceneManager.LoadScene ("double jump man's world");
 
 	}
 
@@ -89,13 +99,11 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	void SetCameraAndPlayerPositions(){
-		if(spawnPoints.Count > 0) {
-			Camera.main.transform.position = spawnPoints [spawnPointIndex];
-			playerOne.position = spawnPoints [spawnPointIndex];
-			Vector3 playerTwoPosition = spawnPoints [spawnPointIndex];
-			playerTwoPosition.x -= 2.5f;
-			playerTwo.position = playerTwoPosition;
-		}
+		Camera.main.transform.position = spawnPoints [spawnPointIndex];
+		playerOne.position = spawnPoints [spawnPointIndex];
+		Vector3 playerTwoPosition = spawnPoints [spawnPointIndex];
+		playerTwoPosition.x -= 2.5f;
+		playerTwo.position = playerTwoPosition;
 	}
 
 	public void DeleteSaveData(){
