@@ -99,11 +99,13 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	void SetCameraAndPlayerPositions(){
-		Camera.main.transform.position = spawnPoints [spawnPointIndex];
-		playerOne.position = spawnPoints [spawnPointIndex];
-		Vector3 playerTwoPosition = spawnPoints [spawnPointIndex];
-		playerTwoPosition.x -= 2.5f;
-		playerTwo.position = playerTwoPosition;
+		if(spawnPoints.Count > 0) {
+			Camera.main.transform.position = spawnPoints [spawnPointIndex];
+			playerOne.position = spawnPoints [spawnPointIndex];
+			Vector3 playerTwoPosition = spawnPoints [spawnPointIndex];
+			playerTwoPosition.x -= 2.5f;
+			playerTwo.position = playerTwoPosition;
+		}
 	}
 
 	public void DeleteSaveData(){
