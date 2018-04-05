@@ -12,7 +12,7 @@ public abstract class ingameCharacter : MonoBehaviour {
 	protected float movementDirection;
 	protected bool facingRight = true;
 	protected bool isGrounded = false;
-	protected float groundRadius = 0.2f;
+	protected float groundRadius = 0.1f;
 	
 	protected LevelManager levelManager;
 	protected int playerNum;
@@ -68,7 +68,7 @@ public abstract class ingameCharacter : MonoBehaviour {
 		if(movementDirection > 0 && !facingRight) {
 			flip();
 		} else if(movementDirection < 0 && facingRight){
-			flip ();
+			flip();
 		}
 	}
 	
@@ -81,11 +81,14 @@ public abstract class ingameCharacter : MonoBehaviour {
 	public abstract void resetPlayerState();
 	
 	protected void swapCharacter() {
+		print ("Player num = " + playerNum);
 		Vector2 characterPosition = new Vector2(transform.position.x, transform.position.y);
 		GameObject newCharacter = GameObject.Instantiate(otherCharacter, new Vector2(characterPosition.x, characterPosition.y), Quaternion.identity) as GameObject;
 		if (playerNum == 1) {
+			print ("Player 1 swapping to: " + newCharacter.name);
 			levelManager.PlayerOneSwap (newCharacter);
 		} else if (playerNum == 2) {
+			print ("Player 2 swapping to: " + newCharacter.name);
 			levelManager.PlayerTwoSwap (newCharacter);
 		}
 
@@ -104,15 +107,18 @@ public abstract class ingameCharacter : MonoBehaviour {
 				break;
 			}
 		}
+
 		setNextCharacter(playerNum);
 		setKeyCodes(playerNum);
 	}
 	
 	protected void setNextCharacter(int playerNum) {
 		if(playerNum == 1) {
-			otherCharacter = levelManager.playerOneCharacters[(characterNum + 1) % levelManager.playerOneCharacters.Count];
+			int index = (characterNum + 1) % levelManager.playerOneCharacters.Count;
+			otherCharacter = levelManager.playerOneCharacters[index];
 		} else if(playerNum == 2) {
-			otherCharacter = levelManager.playerTwoCharacters[(characterNum + 1) % levelManager.playerTwoCharacters.Count];
+			int index = (characterNum + 1) % levelManager.playerTwoCharacters.Count;
+			otherCharacter = levelManager.playerTwoCharacters[index];
 		}
 	}
 	
@@ -143,6 +149,12 @@ public abstract class ingameCharacter : MonoBehaviour {
 		 if(other.gameObject.name == "water" && this.gameObject.tag != "swimmer") {
 			//GetComponent<SpriteRenderer>().enabled = false;
 			//Application.LoadLevel ("double jump man's world");
+			levelManager.RespawnPlayers();
+		 }
+		 
+		 if(other.gameObject.name == "laserBullet") {
+			GetComponent<SpriteRenderer>().enabled = false;
+			//Application.LoadLevel("speed_boost");
 			levelManager.RespawnPlayers();
 		 }
 	}
