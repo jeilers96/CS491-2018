@@ -77,7 +77,7 @@ public class LevelManager : MonoBehaviour {
 
 	public void RespawnPlayers(){
 		Save ();
-		SceneManager.LoadScene ("double jump man's world");
+		SceneManager.LoadScene (SceneManager.GetActiveScene().name);
 
 	}
 
