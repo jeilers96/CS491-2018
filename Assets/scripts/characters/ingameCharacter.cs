@@ -146,17 +146,23 @@ public abstract class ingameCharacter : MonoBehaviour {
 	}
 	
 	protected void OnCollisionEnter2D(Collision2D other) {
-		 if(other.gameObject.name == "water" && this.gameObject.tag != "swimmer") {
+		if(other.gameObject.name == "water" && this.gameObject.tag != "swimmer") {
 			//GetComponent<SpriteRenderer>().enabled = false;
 			//Application.LoadLevel ("double jump man's world");
 			levelManager.RespawnPlayers();
-		 }
+		}
 		 
-		 if(other.gameObject.name == "laserBullet") {
+		if(other.gameObject.name == "laserBullet") {
 			GetComponent<SpriteRenderer>().enabled = false;
 			//Application.LoadLevel("speed_boost");
 			levelManager.RespawnPlayers();
-		 }
+		}
+		
+		if(other.gameObject.name == "spikes") {
+			GetComponent<SpriteRenderer>().enabled = false;
+			//Application.LoadLevel("speed_boost");
+			levelManager.RespawnPlayers();
+		}
 	}
 
 	protected void OnTriggerEnter2D(Collider2D other){
