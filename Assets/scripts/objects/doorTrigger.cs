@@ -1,27 +1,28 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class doorTrigger : MonoBehaviour {
 
 	public door door;
-	
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+	public bool StayOpen = false;
+	public int btnsNeeded = 1;
+
+
+	public int btnsPressedCount = 0;
+
 	public void Toggle(bool state) {
 		if(state) {
-			door.DoorOpens ();
-		} else {
-			door.DoorCloses ();
+			btnsPressedCount++;
+			if (btnsPressedCount == btnsNeeded) {
+				door.DoorOpens ();
+			}
+		} else{
+			btnsPressedCount--;
+			if (!StayOpen) {
+				door.DoorCloses ();
+			}
 		}
 	}
+
 	void onTriggerEnter2D(Collider2D other) {
 		if(other.tag=="player") {
 			door.DoorOpens ();
@@ -29,7 +30,7 @@ public class doorTrigger : MonoBehaviour {
 	}
 	
 	void onTriggerExit2D(Collider2D other) {
-		if(other.tag=="player") {
+		if(other.tag=="player" && !StayOpen) {
 			door.DoorCloses ();
 		}
 	}
