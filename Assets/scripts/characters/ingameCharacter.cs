@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System.IO.Ports;
 
 public abstract class ingameCharacter : MonoBehaviour {
 	public float moveSpeed;
@@ -27,6 +28,7 @@ public abstract class ingameCharacter : MonoBehaviour {
 	protected const float DEFAULT_MOVE_SPEED = 8.0f;
 	protected const float DEFAULT_JUMP_FORCE = 250.0f;
 	
+	private LevelManager manager;
 	// Use this for initialization
 	protected void Start () {
 		Rigidbody2D rigid2D = GetComponent<Rigidbody2D> ();
@@ -34,7 +36,6 @@ public abstract class ingameCharacter : MonoBehaviour {
 		jumpForce = DEFAULT_JUMP_FORCE;
 		rigid2D.freezeRotation = true;
 		levelManager = LevelManager.instance;
-
 		readyPlayer(levelManager);
 	}
 	
@@ -50,6 +51,11 @@ public abstract class ingameCharacter : MonoBehaviour {
 			movementDirection = -1;
 		} else {
 			movementDirection = 0;
+		}
+		if(levelManager.serial.BytesToRead > 0 && (levelManager.serial.ReadByte() & (1 << 0)) == 1) {
+			 movementDirection = 1;
+		} else if(levelManager.serial.BytesToRead > 0 && (levelManager.serial.ReadByte() & (1 << 1)) == 1) {
+			 movementDirection = -1;
 		}
 		
 		rigidBody.velocity = new Vector2(movementDirection * moveSpeed, rigidBody.velocity.y);
@@ -147,13 +153,19 @@ public abstract class ingameCharacter : MonoBehaviour {
 			//GetComponent<SpriteRenderer>().enabled = false;
 			//Application.LoadLevel ("double jump man's world");
 			levelManager.RespawnPlayers();
-		 }
+		}
 		 
-		 if(other.gameObject.name == "laserBullet") {
+		if(other.gameObject.name == "laserBullet") {
 			GetComponent<SpriteRenderer>().enabled = false;
 			//Application.LoadLevel("speed_boost");
 			levelManager.RespawnPlayers();
-		 }
+		}
+		
+		if(other.gameObject.name == "spikes") {
+			GetComponent<SpriteRenderer>().enabled = false;
+			//Application.LoadLevel("speed_boost");
+			levelManager.RespawnPlayers();
+		}
 	}
 
 	protected void OnTriggerEnter2D(Collider2D other){

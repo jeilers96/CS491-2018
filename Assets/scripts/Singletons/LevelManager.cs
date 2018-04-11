@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.IO.Ports;
 
 public class LevelManager : MonoBehaviour {
 
@@ -15,9 +16,10 @@ public class LevelManager : MonoBehaviour {
 	public int spawnPointIndex = 0;
 	public int PlayerOneIndex = 0;
 	public int PlayerTwoIndex = 0;
-	private Transform SpawnPointsTransform;
-
+	public SerialPort serial;
 	public List<Vector3> spawnPoints = new List<Vector3>();
+
+	private Transform SpawnPointsTransform;
 	private SpawnPointManager spawnPointManager;
 	private PlayerUIManager playerUIManager;
 
@@ -44,6 +46,11 @@ public class LevelManager : MonoBehaviour {
 		if (retrieveSaveData) {
 			Load ();
 		}
+		serial = new SerialPort("COM1", 9600);
+		if(!serial.IsOpen) {
+			serial.Open();
+		}
+		serial.ReadTimeout = 1;
 	}
 
 	void Start(){

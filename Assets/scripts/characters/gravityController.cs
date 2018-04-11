@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class gravityController : ingameCharacter {
 	private Rigidbody2D rigid2D;
+	private SpriteRenderer sprite;
 
 	// Use this for initialization
 	void Start () {
 		gameObject.name = "gravityCharacter";
 		base.Start();
 		rigid2D = GetComponent<Rigidbody2D>();
+		sprite = GetComponent<SpriteRenderer>();
 	}
 	
 	// Update is called once per frame
@@ -37,6 +39,7 @@ public class gravityController : ingameCharacter {
 	
 	public override void playerAction(Rigidbody2D rigidBody) {
 		rigid2D.gravityScale *= -1.0f;
+		transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y * -1.0f, transform.localScale.z);
 	}
 	
 	public override void resetPlayerState() {
