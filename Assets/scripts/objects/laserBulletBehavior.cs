@@ -25,4 +25,8 @@ public class laserBulletBehavior : MonoBehaviour {
 			Destroy(gameObject);
 		}
 	}
+	
+	protected void OnTriggerEnter2D() {
+		Destroy(gameObject);
+	}
 }
