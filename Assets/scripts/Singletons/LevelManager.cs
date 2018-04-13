@@ -13,12 +13,13 @@ public class LevelManager : MonoBehaviour {
 	public Transform playerTwo;
 	public List<GameObject> playerOneCharacters;
 	public List<GameObject> playerTwoCharacters;
-	public List<Vector3> spawnPoints;
 	public int spawnPointIndex = 0;
 	public int PlayerOneIndex = 0;
 	public int PlayerTwoIndex = 0;
 	public SerialPort serial;
+	public List<Vector3> spawnPoints = new List<Vector3>();
 
+	private Transform SpawnPointsTransform;
 	private SpawnPointManager spawnPointManager;
 	private PlayerUIManager playerUIManager;
 
@@ -41,7 +42,7 @@ public class LevelManager : MonoBehaviour {
 
 	void Awake(){
 		instance = this;
-		SetCameraAndPlayerPositions ();
+		SetCameraAndPlayerPositions (false);
 		if (retrieveSaveData) {
 			Load ();
 		}
@@ -58,6 +59,9 @@ public class LevelManager : MonoBehaviour {
 		if (retrieveSaveData) {
 			spawnPointManager.Load ();
 		}
+
+		SpawnPointsTransform = GameObject.Find ("SpawnPoints").transform;
+		SetSpawnPointPositions ();
 	}
 
 	/// <summary>
@@ -102,16 +106,20 @@ public class LevelManager : MonoBehaviour {
 
 	public void Load(){
 		SaveLoadManager.LoadLevelManager (ref spawnPointIndex);
-		SetCameraAndPlayerPositions ();
+		SetCameraAndPlayerPositions (true);
 	}
 
-	void SetCameraAndPlayerPositions(){
+	void SetCameraAndPlayerPositions(bool shouldUseSpawnPoints){
 		if(spawnPoints.Count > 0) {
-			Camera.main.transform.position = spawnPoints [spawnPointIndex];
-			playerOne.position = spawnPoints [spawnPointIndex];
-			Vector3 playerTwoPosition = spawnPoints [spawnPointIndex];
-			playerTwoPosition.x -= 2.5f;
-			playerTwo.position = playerTwoPosition;
+			if (!shouldUseSpawnPoints) {
+				Camera.main.transform.position = playerOne.position;
+			} else {
+				Camera.main.transform.position = spawnPoints [spawnPointIndex];
+				playerOne.position = spawnPoints [spawnPointIndex];
+				Vector3 playerTwoPosition = spawnPoints [spawnPointIndex];
+				playerTwoPosition.x -= 2.5f;
+				playerTwo.position = playerTwoPosition;
+			}
 		}
 	}
 
@@ -120,5 +128,21 @@ public class LevelManager : MonoBehaviour {
 		SaveLoadManager.DeleteSpawnPointsManagerSaveData ();
 		print ("Deleted: " + SaveLoadManager.LevelManagerFilePath + "\n"
 			+ SaveLoadManager.SpawnPointManagerFilePath);
+	}
+
+	void SetSpawnPointPositions(){
+		spawnPoints = new List<Vector3> ();
+		if (SpawnPointsTransform != null) {
+			for (int i = 0; i < SpawnPointsTransform.childCount; i++) {
+				spawnPoints.Add (SpawnPointsTransform.GetChild (i).position);
+			}
+		} else {
+			print ("SpawnPointsTransform is required by the level manager");
+		}
+
+	}
+
+	public List<Vector3> GetSpawnPoints(){
+		return spawnPoints;
 	}
 }

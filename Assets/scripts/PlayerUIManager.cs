@@ -11,7 +11,7 @@ public class PlayerUIManager : MonoBehaviour {
 	private LevelManager levelManager; 
 	private List<GameObject> player1Cells;
 	private List<GameObject> player2Cells;
-	public List<Sprite> characterThumbnails;
+	private List<Sprite> characterThumbnails;
 
 	void Awake(){
 		instance = this;
@@ -20,7 +20,7 @@ public class PlayerUIManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		levelManager = LevelManager.instance;
-
+		characterThumbnails = new List<Sprite> ();
 		Sprite thumbnail;
 		thumbnail = Resources.Load<Sprite> ("doubleJumpManThumbnail");
 		if (thumbnail != null) {

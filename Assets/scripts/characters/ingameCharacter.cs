@@ -87,14 +87,11 @@ public abstract class ingameCharacter : MonoBehaviour {
 	public abstract void resetPlayerState();
 	
 	protected void swapCharacter() {
-		print ("Player num = " + playerNum);
 		Vector2 characterPosition = new Vector2(transform.position.x, transform.position.y);
 		GameObject newCharacter = GameObject.Instantiate(otherCharacter, new Vector2(characterPosition.x, characterPosition.y), Quaternion.identity) as GameObject;
 		if (playerNum == 1) {
-			print ("Player 1 swapping to: " + newCharacter.name);
 			levelManager.PlayerOneSwap (newCharacter);
 		} else if (playerNum == 2) {
-			print ("Player 2 swapping to: " + newCharacter.name);
 			levelManager.PlayerTwoSwap (newCharacter);
 		}
 
@@ -152,7 +149,7 @@ public abstract class ingameCharacter : MonoBehaviour {
 	}
 	
 	protected void OnCollisionEnter2D(Collision2D other) {
-		if(other.gameObject.name == "water" && this.gameObject.tag != "swimmer") {
+		if((other.gameObject.name == "water" || other.gameObject.layer == 4) && this.gameObject.tag != "swimmer") {
 			//GetComponent<SpriteRenderer>().enabled = false;
 			//Application.LoadLevel ("double jump man's world");
 			levelManager.RespawnPlayers();

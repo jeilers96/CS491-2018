@@ -15,7 +15,7 @@ public class SpawnPointManager : MonoBehaviour {
 
 	void Start(){
 		levelManager = LevelManager.instance;
-		spawnPointsActive = new bool[levelManager.spawnPoints.Count]; 
+		spawnPointsActive = new bool[transform.childCount]; 
 		for(int i = 0; i < spawnPointsActive.Length; i++) {
 			spawnPointsActive[i] = true;
 		}

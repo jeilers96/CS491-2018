@@ -10,27 +10,26 @@ public class switchController : MonoBehaviour {
 		anim = GetComponent<Animator> ();
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-	
-	void OnTriggerStay2D() {
-		
-		anim.SetBool("down",true);
-		foreach(doorTrigger trigger in doorTrig) {
-			
-			trigger.Toggle(true);
+	void OnTriggerEnter2D() {
+		if (!anim.GetBool ("down")) {
+			foreach (doorTrigger trigger in doorTrig) {
+
+				trigger.Toggle (true);
+			}
 		}
+
+		anim.SetBool("down",true);
 	}
 	
 	void OnTriggerExit2D() {
-		
-		anim.SetBool("down",false);
-		foreach(doorTrigger trigger in doorTrig) {
-			
-			trigger.Toggle(false);
+		if (anim.GetBool ("down")) {
+			foreach (doorTrigger trigger in doorTrig) {
+
+				trigger.Toggle (false);
+			}
 		}
-		
+
+		anim.SetBool("down",false);
+
 	}
 }
