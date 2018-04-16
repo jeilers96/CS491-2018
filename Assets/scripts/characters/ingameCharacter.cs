@@ -29,6 +29,7 @@ public abstract class ingameCharacter : MonoBehaviour {
 	protected const float DEFAULT_JUMP_FORCE = 250.0f;
 	
 	private LevelManager manager;
+	private int playersInSpawnPoint;
 	// Use this for initialization
 	protected void Start () {
 		Rigidbody2D rigid2D = GetComponent<Rigidbody2D> ();
@@ -170,8 +171,18 @@ public abstract class ingameCharacter : MonoBehaviour {
 
 	protected void OnTriggerEnter2D(Collider2D other){
 		if (other.gameObject.tag == "SpawnPoint") {
-			levelManager.SetNewSpawnPoint ();
-			Destroy (other.gameObject);
+			playersInSpawnPoint++;
+			if (playersInSpawnPoint == 2) {
+				playersInSpawnPoint = 0;
+				levelManager.SetNewSpawnPoint ();
+				Destroy (other.gameObject);
+			}
+		}
+	}
+
+	protected void OnTriggerExit2D(Collider2D other){
+		if (playersInSpawnPoint != 0) {
+			playersInSpawnPoint--;
 		}
 	}
 }
