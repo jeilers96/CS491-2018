@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class turretBehavior : MonoBehaviour {
-	public int cycleTime = 120;
+	const int DEFAULT_CYCLE_TIME = 120;
+	const int DEFAULT_INITIAL_SHOT_CLOCK = 0;
+	
+	public int cycleTime = DEFAULT_CYCLE_TIME;
+	public int initialShotClock = DEFAULT_INITIAL_SHOT_CLOCK;
 	public string direction = "left";		// Possible options include : up, down, left, right
 	public bool orientation = true;				// vertical = true, horizontal = false
 	public GameObject laserBullet;
@@ -13,6 +17,7 @@ public class turretBehavior : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+		shotClock = initialShotClock;
 	}
 	
 	// Update is called once per frame
