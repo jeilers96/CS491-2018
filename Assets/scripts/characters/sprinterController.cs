@@ -5,7 +5,7 @@ using UnityEngine;
 public class sprinterController : ingameCharacter {
 	private Rigidbody2D rigid2D;
 	
-	const float DEFAULT_SPRINT_MODIFIER = 3.0f;
+	const float DEFAULT_SPRINT_MODIFIER = 1.5f;
 
 	// Use this for initialization
 	void Start () {
@@ -21,6 +21,14 @@ public class sprinterController : ingameCharacter {
 	}
 	
 	void Update () {
+		//check if character is grounded
+		grounded();
+		//get input from hardware 
+		getBytesFromInput();
+		//get input and move player accordingly 
+		playerMove(rigid2D);
+		
+		//jump and action (no hardware)
 		if(isGrounded && Input.GetKeyDown(keyJump)) {
 			playerJump(rigid2D);
 		}
@@ -32,6 +40,19 @@ public class sprinterController : ingameCharacter {
 			resetPlayerState();
 		}
 		
+		// jump and action (hardware)
+		if((byteRead & (1 << 2)) == 4 && isGrounded) {
+			 playerJump(rigid2D);
+			 byteRead = byteRead & ~(1 << 2);
+		}
+		
+		if((byteRead & (1 << 4)) == 16) {
+			 playerAction(rigid2D);
+		}else {
+			resetPlayerState();
+		}
+		
+		//switch character (no hardware)
 		if(Input.GetKeyDown(keySwap)) {
 			swapCharacter();
 		}

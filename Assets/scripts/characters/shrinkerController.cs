@@ -8,7 +8,6 @@ public class shrinkerController : ingameCharacter {
 	public bool isShrunk;
 	
 	private Rigidbody2D rigid2D;
-	
 	const float DEFAULT_SHRINK_OFFSET = 0.64f;
 
 	// Use this for initialization
@@ -18,13 +17,16 @@ public class shrinkerController : ingameCharacter {
 		rigid2D = GetComponent<Rigidbody2D>();
 	}
 	
-	// Update is called once per frame
-	void FixedUpdate () {
-		base.FixedUpdate();
-		playerMove(rigid2D);
-	}
-	
 	void Update () {
+		
+		//check if character is grounded
+		grounded();
+		//get input from hardware 
+		getBytesFromInput();
+		//get input and move player accordingly 
+		playerMove(rigid2D);
+		
+		//jump and action (no hardware)
 		if(isGrounded && Input.GetKeyDown(keyJump)) {
 			playerJump(rigid2D);
 		}
@@ -36,6 +38,20 @@ public class shrinkerController : ingameCharacter {
 			resetPlayerState();
 		}
 		
+		// jump and action (hardware)
+		if((byteRead & (1 << 2)) == 4 && isGrounded) {
+			 playerJump(rigid2D);
+			 byteRead = byteRead & ~(1 << 2);
+		}
+		
+		if((byteRead & (1 << 4)) == 16) {
+			 playerAction(rigid2D);
+			 byteRead = byteRead & ~(1 << 4);
+		}else if((byteRead & (1 << 4)) == 0) {
+			resetPlayerState();
+		}
+		
+		//switch character (no hardware)
 		if(Input.GetKeyDown(keySwap)) {
 			swapCharacter();
 		}
