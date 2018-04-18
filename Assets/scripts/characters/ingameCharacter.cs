@@ -171,7 +171,7 @@ public abstract class ingameCharacter : MonoBehaviour {
 			levelManager.RespawnPlayers();
 		}
 		
-		if(other.gameObject.name == "spikes") {
+		if(other.gameObject.name == "playerHazard") {
 			GetComponent<SpriteRenderer>().enabled = false;
 			//Application.LoadLevel("speed_boost");
 			levelManager.RespawnPlayers();
