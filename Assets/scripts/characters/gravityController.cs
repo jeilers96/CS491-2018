@@ -14,24 +14,43 @@ public class gravityController : ingameCharacter {
 		sprite = GetComponent<SpriteRenderer>();
 	}
 	
-	// Update is called once per frame
-	void FixedUpdate () {
-		base.FixedUpdate();
-		playerMove(rigid2D);
-	}
-	
 	void Update () {
-		if(isGrounded && Input.GetKeyDown(keyJump)) {
-			playerJump(rigid2D);
-		}
+		//check if character is grounded
+		grounded();
 		
-		if(Input.GetKeyDown(keyAction)) {
-			playerAction(rigid2D);
+		if(levelManager.serial != null) {
+			//get input from hardware 
+			getBytesFromInput();
+			//get input and move player accordingly 
+			playerMove(rigid2D);
+			// jump and action (hardware)
+			if((byteRead & (1 << 2)) == 4 && isGrounded) {
+				 playerJump(rigid2D);
+				 byteRead = byteRead & ~(1 << 2);
+			}
+			
+			if((byteRead & (1 << 4)) == 16) {
+				 playerAction(rigid2D);
+				 byteRead = byteRead & ~(1 << 4);
+			}else {
+				resetPlayerState();
+			}
+		} else {
+			
+			playerMove(rigid2D);
+			//jump and action (no hardware)
+			if(isGrounded && Input.GetKeyDown(keyJump)) {
+				playerJump(rigid2D);
+			}
+			
+			if(Input.GetKeyDown(keyAction)) {
+				playerAction(rigid2D);
+			}
+			else if(Input.GetKeyUp(keyAction)) {
+				resetPlayerState();
+			}
 		}
-		else if(Input.GetKeyUp(keyAction)) {
-			resetPlayerState();
-		}
-		
+		//switch character (no hardware)
 		if(Input.GetKeyDown(keySwap)) {
 			swapCharacter();
 		}
