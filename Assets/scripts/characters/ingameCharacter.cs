@@ -40,9 +40,6 @@ public abstract class ingameCharacter : MonoBehaviour {
 		readyPlayer(levelManager);
 	}
 	
-	// Update is called once per frame
-	protected void FixedUpdate () {
-	}
 	protected void grounded() {
 		isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundEntity);
 	}
@@ -53,15 +50,8 @@ public abstract class ingameCharacter : MonoBehaviour {
 		} 
 	}
 	protected void playerMove(Rigidbody2D rigidBody) {
-		if(levelManager.serial != null) {
-			if(levelManager.serial.BytesToRead > 0 && (levelManager.serial.ReadByte() & (1 << 0)) == 1) {
-				movementDirection = 1;
-			} else if(levelManager.serial.BytesToRead > 0 && (levelManager.serial.ReadByte() & (1 << 1)) == 1) {
-				movementDirection = -1;
-			}
-		}
-<<<<<<< Updated upstream
-		else {
+		
+		if(levelManager.serial == null) {
 			if(Input.GetKey(keyRight)) {
 				movementDirection = 1;
 			} else if(Input.GetKey(keyLeft)) {
@@ -69,17 +59,15 @@ public abstract class ingameCharacter : MonoBehaviour {
 			} else {
 				movementDirection = 0;
 			}
-=======
-		
-		if((byteRead & (1 << 1)) == 2) {
-			 movementDirection = -1;
-		} else if((byteRead & (1 << 0)) == 1) {
-			 movementDirection = 1;
 		} else {
-			movementDirection = 0;
->>>>>>> Stashed changes
+			if((byteRead & (1 << 1)) == 2) {
+				 movementDirection = -1;
+			} else if((byteRead & (1 << 0)) == 1) {
+				 movementDirection = 1;
+			} else {
+				movementDirection = 0;
+			}
 		}
-		
 		rigidBody.velocity = new Vector2(movementDirection * moveSpeed, rigidBody.velocity.y);
 		
 		if(Mathf.Abs(movementDirection) > 0 && isGrounded) {

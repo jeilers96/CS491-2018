@@ -11,19 +11,16 @@ public class DoubleJumpCharacterController : ingameCharacter {
 
 	// Use this for initialization
 	void Start () {
-		gameObject.name = "doubleJumpCharacter";
+		gameObject.name = "DoubleJumpCharacter";
 		base.Start();
 		rigid2D = GetComponent<Rigidbody2D>();
 		hasSecondJump = true;
 	}
 
-	// Update is called once per frame
-	void FixedUpdate () {
-		base.FixedUpdate();
-		playerMove(rigid2D);
-	}
-
 	void Update () {
+		grounded();
+		//get input and move player accordingly 
+		playerMove(rigid2D);
 		if(isGrounded && Input.GetKeyDown(keyJump)) {
 			isGrounded = false;
 			playerJump (rigid2D);
