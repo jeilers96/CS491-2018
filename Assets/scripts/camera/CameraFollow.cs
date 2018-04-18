@@ -31,7 +31,7 @@ public class CameraFollow : MonoBehaviour {
 		playerOneDesiredPosition = levelManager.playerOne.position + offset;
 		playerTwoDesiredPosition = levelManager.playerTwo.position + offset;
 		averagePlayerPosition = (playerOneDesiredPosition + playerTwoDesiredPosition) / 2;
-		transform.position = Vector3.Lerp (transform.position, averagePlayerPosition, smoothSpeed);;
+		transform.position = Vector3.Lerp (transform.position, averagePlayerPosition, smoothSpeed);
 	}
 
 	/// <summary>

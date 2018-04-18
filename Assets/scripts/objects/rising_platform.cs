@@ -8,18 +8,24 @@ public class rising_platform : MonoBehaviour {
 	public Vector3 posB;
 	public float speedUp = 0.05f;
 	public float speedDown = 2f;
-	// Use this for initialization
-	void Start () {
-		
+
+	private Animation anim;
+
+	void Start(){
+		anim = GetComponent<Animation> ();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+	void FixedUpdate(){
+		print ("Position: " + transform.position);
 	}
 	
 	public void rise() {
-		transform.position = Vector3.MoveTowards(transform.position, posB, speedUp);
+		//if (anim == null) {
+			transform.position = Vector3.MoveTowards (transform.position, posB, speedUp);
+		//}else 
+		if (anim != null && !anim.isPlaying) {
+			anim.Play ();
+		}
 	}
 	
 	public void fall() {

@@ -14,6 +14,7 @@ public class turretBehavior : MonoBehaviour {
 	
 	private float shotDirection;
 	private int shotClock = 0;
+	private float diagonalDirection;
 	
 	// Use this for initialization
 	void Start () {
@@ -29,16 +30,15 @@ public class turretBehavior : MonoBehaviour {
 				bullet.transform.Rotate(0, 0, 90);
 			}
 			
-			if(direction.Equals("up") || direction.Equals("right")) {
+			if (direction.Equals ("up") || direction.Equals ("right")) {
 				shotDirection = 1.0f;
-			}
-			else if(direction.Equals("down") || direction.Equals("left")) {
+			} else if (direction.Equals ("down") || direction.Equals ("left")) {
 				shotDirection = -1.0f;
-			}
-			else
-			{
-				Destroy(gameObject);
-				Debug.Log("Invalid direction for turret provided.  Please check spelling of given direction.");
+			} else if (direction.Equals ("downleft")) {
+				bullet.transform.Rotate (0, 0, 45);
+			} else {
+				Destroy (gameObject);
+				Debug.Log ("Invalid direction for turret provided.  Please check spelling of given direction.");
 			}
 			
 			//bullet.GetComponent<laserBulletBehavior>().setVelocity(shotDirection, orientation);

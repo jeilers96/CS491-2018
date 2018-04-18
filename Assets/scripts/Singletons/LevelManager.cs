@@ -46,11 +46,18 @@ public class LevelManager : MonoBehaviour {
 		if (retrieveSaveData) {
 			Load ();
 		}
-		serial = new SerialPort("COM1", 9600);
-		if(!serial.IsOpen) {
-			serial.Open();
+
+		if (Application.platform == RuntimePlatform.OSXPlayer || Application.platform == RuntimePlatform.OSXEditor) {
+			//serial = new SerialPort ("/dev/ttyS0", 9600);
+		} else if (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor) {
+			serial = new SerialPort ("COM1", 9600);
 		}
-		serial.ReadTimeout = 1;
+
+
+//		if(!serial.IsOpen) {
+//			serial.Open();
+//		}
+//		serial.ReadTimeout = 1;
 	}
 
 	void Start(){

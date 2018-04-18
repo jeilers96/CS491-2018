@@ -53,11 +53,11 @@ public abstract class ingameCharacter : MonoBehaviour {
 		} else {
 			movementDirection = 0;
 		}
-		if(levelManager.serial.BytesToRead > 0 && (levelManager.serial.ReadByte() & (1 << 0)) == 1) {
-			 movementDirection = 1;
-		} else if(levelManager.serial.BytesToRead > 0 && (levelManager.serial.ReadByte() & (1 << 1)) == 1) {
-			 movementDirection = -1;
-		}
+//		if(levelManager.serial.BytesToRead > 0 && (levelManager.serial.ReadByte() & (1 << 0)) == 1) {
+//			 movementDirection = 1;
+//		} else if(levelManager.serial.BytesToRead > 0 && (levelManager.serial.ReadByte() & (1 << 1)) == 1) {
+//			 movementDirection = -1;
+//		}
 		
 		rigidBody.velocity = new Vector2(movementDirection * moveSpeed, rigidBody.velocity.y);
 		

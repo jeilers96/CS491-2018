@@ -60,7 +60,7 @@ public class PlayerUIManager : MonoBehaviour {
 			if (player1Characters != null) {
 				foreach (GameObject character in levelManager.playerOneCharacters) {
 					switch (character.name) {
-					case "doubleJumpCharacter":
+					case "DoubleJumpCharacter":
 						CreatePlayerCell (player1Characters, 0);
 						break;
 					case "swimmerCharacter":
@@ -85,7 +85,7 @@ public class PlayerUIManager : MonoBehaviour {
 			if (player2Characters != null) {
 				foreach (GameObject character in levelManager.playerTwoCharacters) {
 					switch (character.name) {
-					case "doubleJumpCharacter":
+					case "DoubleJumpCharacter":
 						CreatePlayerCell (player2Characters, 0);
 						break;
 					case "swimmerCharacter":
