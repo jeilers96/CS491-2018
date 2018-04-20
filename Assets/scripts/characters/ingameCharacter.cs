@@ -104,7 +104,6 @@ public abstract class ingameCharacter : MonoBehaviour {
 		} else if (playerNum == 2) {
 			levelManager.PlayerTwoSwap (newCharacter);
 		}
-
 		Destroy(gameObject);
 	}
 	
