@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -46,18 +47,17 @@ public class LevelManager : MonoBehaviour {
 		if (retrieveSaveData) {
 			Load ();
 		}
-
-		if (Application.platform == RuntimePlatform.OSXPlayer || Application.platform == RuntimePlatform.OSXEditor) {
-			//serial = new SerialPort ("/dev/ttyS0", 9600);
-		} else if (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor) {
-			serial = new SerialPort ("COM1", 9600);
+		
+		if(Array.IndexOf(System.IO.Ports.SerialPort.GetPortNames(), "COM1") >= 0) {
+			serial = new SerialPort("COM1", 9600);
 		}
-
-
-//		if(!serial.IsOpen) {
-//			serial.Open();
-//		}
-//		serial.ReadTimeout = 1;
+		
+		if(serial != null) {
+			if(!serial.IsOpen) {
+				serial.Open();
+			}
+			serial.ReadTimeout = 1;
+		}
 	}
 
 	void Start(){
@@ -67,7 +67,7 @@ public class LevelManager : MonoBehaviour {
 			spawnPointManager.Load ();
 		}
 
-		SpawnPointsTransform = GameObject.Find ("SpawnPoints").transform;
+		//SpawnPointsTransform = GameObject.Find ("SpawnPoints").transform;
 		SetSpawnPointPositions ();
 	}
 

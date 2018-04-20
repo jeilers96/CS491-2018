@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using System.IO.Ports;
 
 public abstract class ingameCharacter : MonoBehaviour {
 	public float moveSpeed;
@@ -24,6 +23,7 @@ public abstract class ingameCharacter : MonoBehaviour {
 	protected KeyCode keyJump;
 	protected KeyCode keyAction;
 	protected KeyCode keySwap;
+	protected int byteRead;
 	
 	protected const float DEFAULT_MOVE_SPEED = 8.0f;
 	protected const float DEFAULT_JUMP_FORCE = 250.0f;
@@ -42,25 +42,35 @@ public abstract class ingameCharacter : MonoBehaviour {
 		readyPlayer(levelManager);
 	}
 	
-	// Update is called once per frame
-	protected void FixedUpdate () {
+	protected void grounded() {
 		isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundEntity);
 	}
 	
+	protected void getBytesFromInput(){
+		if(levelManager.serial.BytesToRead > 0) {
+			byteRead = levelManager.serial.ReadByte();
+		} 
+	}
 	protected void playerMove(Rigidbody2D rigidBody) {
-		if(Input.GetKey(keyRight)) {
-			movementDirection = 1;
-		} else if(Input.GetKey(keyLeft)) {
-			movementDirection = -1;
-		} else {
-			movementDirection = 0;
-		}
-//		if(levelManager.serial.BytesToRead > 0 && (levelManager.serial.ReadByte() & (1 << 0)) == 1) {
-//			 movementDirection = 1;
-//		} else if(levelManager.serial.BytesToRead > 0 && (levelManager.serial.ReadByte() & (1 << 1)) == 1) {
-//			 movementDirection = -1;
-//		}
 		
+		if(levelManager.serial == null) {
+			if(Input.GetKey(keyRight)) {
+				movementDirection = 1;
+			} else if(Input.GetKey(keyLeft)) {
+				movementDirection = -1;
+			} else {
+				movementDirection = 0;
+			}
+		} else {
+			if((byteRead & (1 << 1)) == 2) {
+				 movementDirection = -1;
+			} else if((byteRead & (1 << 0)) == 1) {
+				 movementDirection = 1;
+			} else {
+				movementDirection = 0;
+			}
+		}
+
 		rigidBody.velocity = new Vector2(movementDirection * moveSpeed, rigidBody.velocity.y);
 		
 		if(Mathf.Abs(movementDirection) > 0 && isGrounded) {
@@ -164,7 +174,7 @@ public abstract class ingameCharacter : MonoBehaviour {
 			levelManager.RespawnPlayers();
 		}
 		
-		if(other.gameObject.name == "spikes") {
+		if(other.gameObject.name == "playerHazard") {
 			GetComponent<SpriteRenderer>().enabled = false;
 			//Application.LoadLevel("speed_boost");
 			levelManager.RespawnPlayers();

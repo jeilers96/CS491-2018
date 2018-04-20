@@ -17,13 +17,10 @@ public class DoubleJumpCharacterController : ingameCharacter {
 		hasSecondJump = true;
 	}
 
-	// Update is called once per frame
-	void FixedUpdate () {
-		base.FixedUpdate();
-		playerMove(rigid2D);
-	}
-
 	void Update () {
+		grounded();
+		//get input and move player accordingly 
+		playerMove(rigid2D);
 		if(isGrounded && Input.GetKeyDown(keyJump)) {
 			isGrounded = false;
 			playerJump (rigid2D);
