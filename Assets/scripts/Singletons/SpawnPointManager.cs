@@ -6,6 +6,7 @@ public class SpawnPointManager : MonoBehaviour {
 
 	public static SpawnPointManager instance;
 	public bool[] spawnPointsActive;
+	public int playersInSpawnPoint;
 
 	private LevelManager levelManager;
 

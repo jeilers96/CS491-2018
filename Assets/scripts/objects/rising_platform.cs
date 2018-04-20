@@ -14,16 +14,11 @@ public class rising_platform : MonoBehaviour {
 	void Start(){
 		anim = GetComponent<Animation> ();
 	}
-
-	void FixedUpdate(){
-		print ("Position: " + transform.position);
-	}
 	
 	public void rise() {
-		//if (anim == null) {
+		if (anim == null) {
 			transform.position = Vector3.MoveTowards (transform.position, posB, speedUp);
-		//}else 
-		if (anim != null && !anim.isPlaying) {
+		} else if (anim != null && !anim.isPlaying) {
 			anim.Play ();
 		}
 	}
