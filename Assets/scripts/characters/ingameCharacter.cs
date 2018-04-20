@@ -29,7 +29,8 @@ public abstract class ingameCharacter : MonoBehaviour {
 	protected const float DEFAULT_JUMP_FORCE = 250.0f;
 	
 	private LevelManager manager;
-	private int playersInSpawnPoint;
+	private SpawnPointManager SPManager;
+
 	// Use this for initialization
 	protected void Start () {
 		Rigidbody2D rigid2D = GetComponent<Rigidbody2D> ();
@@ -37,6 +38,7 @@ public abstract class ingameCharacter : MonoBehaviour {
 		jumpForce = DEFAULT_JUMP_FORCE;
 		rigid2D.freezeRotation = true;
 		levelManager = LevelManager.instance;
+		SPManager = SpawnPointManager.instance;
 		readyPlayer(levelManager);
 	}
 	
@@ -68,6 +70,7 @@ public abstract class ingameCharacter : MonoBehaviour {
 				movementDirection = 0;
 			}
 		}
+
 		rigidBody.velocity = new Vector2(movementDirection * moveSpeed, rigidBody.velocity.y);
 		
 		if(Mathf.Abs(movementDirection) > 0 && isGrounded) {
@@ -179,9 +182,10 @@ public abstract class ingameCharacter : MonoBehaviour {
 
 	protected void OnTriggerEnter2D(Collider2D other){
 		if (other.gameObject.tag == "SpawnPoint") {
-			playersInSpawnPoint++;
-			if (playersInSpawnPoint == 2) {
-				playersInSpawnPoint = 0;
+			SPManager.playersInSpawnPoint++;
+			print ("Players in trigger " + SPManager.playersInSpawnPoint);
+			if (SPManager.playersInSpawnPoint == 2) {
+				SPManager.playersInSpawnPoint = 0;
 				levelManager.SetNewSpawnPoint ();
 				Destroy (other.gameObject);
 			}
@@ -189,8 +193,11 @@ public abstract class ingameCharacter : MonoBehaviour {
 	}
 
 	protected void OnTriggerExit2D(Collider2D other){
-		if (playersInSpawnPoint != 0) {
-			playersInSpawnPoint--;
+		if (other.gameObject.tag == "SpawnPoint") {
+			if (SPManager.playersInSpawnPoint != 0) {
+				SPManager.playersInSpawnPoint--;
+				print ("Players in trigger " + SPManager.playersInSpawnPoint);
+			}
 		}
 	}
 }

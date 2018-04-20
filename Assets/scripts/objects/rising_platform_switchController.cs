@@ -10,27 +10,21 @@ public class rising_platform_switchController : MonoBehaviour {
 		anim = GetComponent<Animator> ();
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-	
 	void OnTriggerStay2D() {
-		
 		anim.SetBool("down",true);
+
 		foreach(platformTrigger trigger in platformTrig) {
-			
+
 			trigger.Toggle(true);
 		}
 	}
 	
 	void OnTriggerExit2D() {
-		
-		anim.SetBool("down",false);
-		foreach(platformTrigger trigger in platformTrig) {
-			
-			trigger.Toggle(false);
+		anim.SetBool ("down", false);
+
+		foreach (platformTrigger trigger in platformTrig) {
+
+			trigger.Toggle (false);
 		}
-		
 	}
 }
