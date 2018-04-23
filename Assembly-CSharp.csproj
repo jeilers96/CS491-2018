@@ -51,11 +51,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\GameController.cs" />
-     <Compile Include="Assets\MainMenu.cs" />
-     <Compile Include="Assets\MovingPlatform.cs" />
-     <Compile Include="Assets\PauseMenu.cs" />
-     <Compile Include="Assets\SceneLoader.cs" />
      <Compile Include="Assets\scripts\camera\CameraFollow.cs" />
      <Compile Include="Assets\scripts\characters\character_test_controller.cs" />
      <Compile Include="Assets\scripts\characters\characterSwapper.cs" />
@@ -71,24 +66,31 @@
      <Compile Include="Assets\scripts\Editors\LevelManagerEditor.cs" />
      <Compile Include="Assets\scripts\Editors\SpawingController.cs" />
      <Compile Include="Assets\scripts\menu\ButtonManager.cs" />
+     <Compile Include="Assets\scripts\menu\MainMenu.cs" />
+     <Compile Include="Assets\scripts\menu\PauseMenu.cs" />
+     <Compile Include="Assets\scripts\menu\SceneLoader.cs" />
      <Compile Include="Assets\scripts\objects\door.cs" />
      <Compile Include="Assets\scripts\objects\doorTrigger.cs" />
      <Compile Include="Assets\scripts\objects\laserBulletBehavior.cs" />
+     <Compile Include="Assets\scripts\objects\MovingPlatform.cs" />
      <Compile Include="Assets\scripts\objects\platformTrigger.cs" />
      <Compile Include="Assets\scripts\objects\rising_platform.cs" />
      <Compile Include="Assets\scripts\objects\rising_platform_switchController.cs" />
+     <Compile Include="Assets\scripts\objects\RotateLaser.cs" />
      <Compile Include="Assets\scripts\objects\switchController.cs" />
      <Compile Include="Assets\scripts\objects\targetController.cs" />
      <Compile Include="Assets\scripts\objects\turretBehavior.cs" />
-     <Compile Include="Assets\scripts\PlayerUIManager.cs" />
      <Compile Include="Assets\scripts\Possibly useful stuff\CreateBuyableObject.cs" />
      <Compile Include="Assets\scripts\Possibly useful stuff\LevelController.cs" />
      <Compile Include="Assets\scripts\Possibly useful stuff\LevelSelector.cs" />
      <Compile Include="Assets\scripts\Possibly useful stuff\LevelSelectorManager.cs" />
      <Compile Include="Assets\scripts\Possibly useful stuff\Tags.cs" />
+     <Compile Include="Assets\scripts\Singletons\GameController.cs" />
      <Compile Include="Assets\scripts\Singletons\LevelManager.cs" />
+     <Compile Include="Assets\scripts\Singletons\PlayerUIManager.cs" />
      <Compile Include="Assets\scripts\Singletons\SaveLoadManager.cs" />
      <Compile Include="Assets\scripts\Singletons\SpawnPointManager.cs" />
+     <Compile Include="Assets\scripts\Singletons\TilemapManager.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

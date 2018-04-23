@@ -67,7 +67,7 @@ public class LevelManager : MonoBehaviour {
 			spawnPointManager.Load ();
 		}
 
-		//SpawnPointsTransform = GameObject.Find ("SpawnPoints").transform;
+		SpawnPointsTransform = GameObject.Find ("SpawnPoints").transform;
 		SetSpawnPointPositions ();
 	}
 

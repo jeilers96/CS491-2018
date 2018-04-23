@@ -100,15 +100,17 @@ public abstract class ingameCharacter : MonoBehaviour {
 	public abstract void resetPlayerState();
 	
 	protected void swapCharacter() {
-		Vector2 characterPosition = new Vector2(transform.position.x, transform.position.y);
-		GameObject newCharacter = GameObject.Instantiate(otherCharacter, new Vector2(characterPosition.x, characterPosition.y), Quaternion.identity) as GameObject;
-		if (playerNum == 1) {
-			levelManager.PlayerOneSwap (newCharacter);
-		} else if (playerNum == 2) {
-			levelManager.PlayerTwoSwap (newCharacter);
-		}
+		if (levelManager.playerOneCharacters.Count > 1 && levelManager.playerTwoCharacters.Count > 1) {
+			Vector2 characterPosition = new Vector2 (transform.position.x, transform.position.y);
+			GameObject newCharacter = GameObject.Instantiate (otherCharacter, new Vector2 (characterPosition.x, characterPosition.y), Quaternion.identity) as GameObject;
+			if (playerNum == 1) {
+				levelManager.PlayerOneSwap (newCharacter);
+			} else if (playerNum == 2) {
+				levelManager.PlayerTwoSwap (newCharacter);
+			}
 
-		Destroy(gameObject);
+			Destroy (gameObject);
+		}
 	}
 	
 	protected void readyPlayer(LevelManager levelManager) {
