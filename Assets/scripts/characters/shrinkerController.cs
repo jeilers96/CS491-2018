@@ -38,6 +38,12 @@ public class shrinkerController : ingameCharacter {
 			}else {
 				resetPlayerState();
 			}
+			//switch character (hardware)
+			if((byteRead & (1 << 5)) == 32) {
+				 swapCharacter();
+				 byteRead = byteRead & ~(1 << 5);
+			}
+			
 		} else {
 			
 			playerMove(rigid2D);
@@ -52,11 +58,14 @@ public class shrinkerController : ingameCharacter {
 			else if(Input.GetKeyUp(keyAction)) {
 				resetPlayerState();
 			}
+			
+			//switch character (no hardware)
+			if(Input.GetKeyDown(keySwap)) {
+				swapCharacter();
+			}
 		}
-		//switch character (no hardware)
-		if(Input.GetKeyDown(keySwap)) {
-			swapCharacter();
-		}
+		
+		
 	}
 	
 	public override void playerAction(Rigidbody2D rigidBody) {
