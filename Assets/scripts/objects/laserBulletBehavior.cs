@@ -28,7 +28,6 @@ public class laserBulletBehavior : MonoBehaviour {
 	}
 	
 	protected void OnCollisionEnter2D() {
-		Debug.Log("Bullet collision");
 		Destroy(gameObject);
 	}
 	
