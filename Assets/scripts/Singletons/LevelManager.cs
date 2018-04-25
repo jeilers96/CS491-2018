@@ -9,6 +9,7 @@ public class LevelManager : MonoBehaviour {
 
 	//static instance for other scripts to reference
 	public static LevelManager instance;
+	public static GameController gameController;
 	public bool retrieveSaveData = true;
 	public Transform playerOne;
 	public Transform playerTwo;
@@ -67,8 +68,14 @@ public class LevelManager : MonoBehaviour {
 			spawnPointManager.Load ();
 		}
 
-		SpawnPointsTransform = GameObject.Find ("SpawnPoints").transform;
-		SetSpawnPointPositions ();
+		if(GameObject.Find("SpawnPoints") != null) {
+			SpawnPointsTransform = GameObject.Find("SpawnPoints").transform;
+			SetSpawnPointPositions ();
+		}
+		
+		if(GameObject.Find("GameController") != null) {
+			gameController = GameObject.Find("GameController").GetComponent<GameController>();
+		}
 	}
 
 	/// <summary>
@@ -151,5 +158,14 @@ public class LevelManager : MonoBehaviour {
 
 	public List<Vector3> GetSpawnPoints(){
 		return spawnPoints;
+	}
+	
+	public void SetPlayerAtTeleporter(int playerNum, bool isAtTeleporter) {
+		if(playerNum == 1) {
+			gameController.p1AtTeleporter = isAtTeleporter;
+		}
+		else if(playerNum == 2) {
+			gameController.p2AtTeleporter = isAtTeleporter;
+		}
 	}
 }

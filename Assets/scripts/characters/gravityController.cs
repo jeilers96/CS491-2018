@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class gravityController : ingameCharacter {
 	private Rigidbody2D rigid2D;
-	private SpriteRenderer sprite;
 
 	// Use this for initialization
 	void Start () {
 		gameObject.name = "gravityCharacter";
 		base.Start();
 		rigid2D = GetComponent<Rigidbody2D>();
-		sprite = GetComponent<SpriteRenderer>();
 	}
 	
 	void Update () {

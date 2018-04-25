@@ -14,6 +14,7 @@ public class laserBulletBehavior : MonoBehaviour {
 		gameObject.name = "laserBullet";
 		rigid2D = GetComponent<Rigidbody2D>();
 		initialX = rigid2D.position.x;
+		initialY = rigid2D.position.y;
 	}
 	
 	void Update () {
@@ -24,6 +25,11 @@ public class laserBulletBehavior : MonoBehaviour {
 		if(Mathf.Abs(rigid2D.position.y - initialY) >= 20.0) {
 			Destroy(gameObject);
 		}
+	}
+	
+	protected void OnCollisionEnter2D() {
+		Debug.Log("Bullet collision");
+		Destroy(gameObject);
 	}
 	
 	protected void OnTriggerEnter2D() {

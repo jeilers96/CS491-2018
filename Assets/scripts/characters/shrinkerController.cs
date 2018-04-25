@@ -71,10 +71,10 @@ public class shrinkerController : ingameCharacter {
 	public override void playerAction(Rigidbody2D rigidBody) {
 		Vector2 characterPosition = new Vector2(transform.position.x, transform.position.y);
 		if(!isShrunk) {
-			GameObject newCharacter = GameObject.Instantiate(shrunkCharacter, new Vector2(characterPosition.x, characterPosition.y - DEFAULT_SHRINK_OFFSET), Quaternion.identity) as GameObject;
+			GameObject.Instantiate(shrunkCharacter, new Vector2(characterPosition.x, characterPosition.y - DEFAULT_SHRINK_OFFSET), Quaternion.identity);
 		}
 		else {
-			GameObject newCharacter = GameObject.Instantiate(normalCharacter, new Vector2(characterPosition.x, characterPosition.y + DEFAULT_SHRINK_OFFSET), Quaternion.identity) as GameObject;
+			GameObject.Instantiate(normalCharacter, new Vector2(characterPosition.x, characterPosition.y + DEFAULT_SHRINK_OFFSET), Quaternion.identity);
 		}
 
 		Destroy(gameObject);

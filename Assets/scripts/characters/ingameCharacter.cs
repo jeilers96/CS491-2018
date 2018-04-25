@@ -14,6 +14,8 @@ public abstract class ingameCharacter : MonoBehaviour {
 	protected bool isGrounded = false;
 	protected float groundRadius = 0.1f;
 	
+	protected bool isAtTeleporter = false;
+	
 	protected LevelManager levelManager;
 	protected int playerNum;
 	protected int characterNum;
@@ -165,20 +167,16 @@ public abstract class ingameCharacter : MonoBehaviour {
 	
 	protected void OnCollisionEnter2D(Collision2D other) {
 		if((other.gameObject.name == "water" || other.gameObject.layer == 4) && this.gameObject.tag != "swimmer") {
-			//GetComponent<SpriteRenderer>().enabled = false;
-			//Application.LoadLevel ("double jump man's world");
 			levelManager.RespawnPlayers();
 		}
 		 
 		if(other.gameObject.name == "laserBullet") {
 			GetComponent<SpriteRenderer>().enabled = false;
-			//Application.LoadLevel("speed_boost");
 			levelManager.RespawnPlayers();
 		}
 		
 		if(other.gameObject.name == "playerHazard") {
 			GetComponent<SpriteRenderer>().enabled = false;
-			//Application.LoadLevel("speed_boost");
 			levelManager.RespawnPlayers();
 		}
 	}
@@ -193,6 +191,10 @@ public abstract class ingameCharacter : MonoBehaviour {
 				Destroy (other.gameObject);
 			}
 		}
+		
+		if(other.gameObject.tag == "teleporter") {
+			levelManager.SetPlayerAtTeleporter(playerNum, true);
+		}
 	}
 
 	protected void OnTriggerExit2D(Collider2D other){
@@ -201,6 +203,10 @@ public abstract class ingameCharacter : MonoBehaviour {
 				SPManager.playersInSpawnPoint--;
 				print ("Players in trigger " + SPManager.playersInSpawnPoint);
 			}
+		}
+		
+		if(other.gameObject.tag == "teleporter") {
+			levelManager.SetPlayerAtTeleporter(playerNum, false);
 		}
 	}
 }
