@@ -8,6 +8,11 @@ public class RotateLaser : MonoBehaviour {
 	public bool stayRotated = true;
 
 	private bool rotated = false;
+	private Animator anim;
+
+	void Start () {
+		anim = GetComponent<Animator> ();
+	}
 
 	void OnTriggerEnter2D() {
 		if (laserToRotate != null && !rotated) {
@@ -21,6 +26,8 @@ public class RotateLaser : MonoBehaviour {
 		} else {
 			print ("no transform assigned on button: " + gameObject.name);
 		}
+
+		anim.SetBool("down",true);
 	}
 
 	void OnTriggerExit2D() {
@@ -29,5 +36,7 @@ public class RotateLaser : MonoBehaviour {
 		} else {
 			print ("no transform assigned on button: " + gameObject.name);
 		}
+
+		anim.SetBool("down",false);
 	}
 }
