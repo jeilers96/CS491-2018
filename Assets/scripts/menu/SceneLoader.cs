@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,6 +12,12 @@ public class SceneLoader : MonoBehaviour {
 	private int scene;
 	[SerializeField]
 	private Text loadingText;
+	
+	private String nextScene;
+	
+	void Start() {
+		scene = GetNextSceneName();
+	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -33,8 +40,21 @@ public class SceneLoader : MonoBehaviour {
 		AsyncOperation async = SceneManager.LoadSceneAsync(scene);
 
 		// While the asynchronous operation to load the new scene is not yet complete, continue waiting until it's done.
-		while (!async.isDone) {
-			yield return null;
+		// while (!async.isDone) {
+			// yield return null;
+		// }
+	}
+	
+	int GetNextSceneName() {
+		Scene scene = SceneManager.GetActiveScene();
+		int nextScene;
+		
+		switch(scene.name) {
+			default:
+				nextScene = 0;
+				break;
 		}
+		
+		return nextScene;
 	}
 }

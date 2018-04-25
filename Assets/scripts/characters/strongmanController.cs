@@ -37,6 +37,12 @@ public class strongmanController : ingameCharacter {
 				 playerAction(rigid2D);
 				 byteRead = byteRead & ~(1 << 4);
 			}
+			
+			//switch character (hardware)
+			if((byteRead & (1 << 5)) == 32) {
+				 swapCharacter();
+				 byteRead = byteRead & ~(1 << 5);
+			}
 		} else {
 			
 			playerMove(rigid2D);
@@ -48,10 +54,11 @@ public class strongmanController : ingameCharacter {
 			if(Input.GetKeyDown(keyAction)) {
 				playerAction(rigid2D);
 			}
-		}
-		//switch character (no hardware)
-		if(Input.GetKeyDown(keySwap)) {
-			swapCharacter();
+			
+			//switch character (no hardware)
+			if(Input.GetKeyDown(keySwap)) {
+				swapCharacter();
+			}
 		}
 		
 		if(isGrabbing) {

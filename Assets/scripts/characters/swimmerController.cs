@@ -27,6 +27,11 @@ public class swimmerController : ingameCharacter {
 				 byteRead = byteRead & ~(1 << 2);
 			}
 			
+			//switch character (hardware)
+			if((byteRead & (1 << 5)) == 32) {
+				 swapCharacter();
+				 byteRead = byteRead & ~(1 << 5);
+			}
 		} else {
 			
 			playerMove(rigid2D);
@@ -34,10 +39,11 @@ public class swimmerController : ingameCharacter {
 			if(isGrounded && Input.GetKeyDown(keyJump)) {
 				playerJump(rigid2D);
 			}
-		}
-		//switch character (no hardware)
-		if(Input.GetKeyDown(keySwap)) {
-			swapCharacter();
+			
+			//switch character (no hardware)
+			if(Input.GetKeyDown(keySwap)) {
+				swapCharacter();
+			}
 		}
 	}
 	
