@@ -179,6 +179,10 @@ public abstract class ingameCharacter : MonoBehaviour {
 			GetComponent<SpriteRenderer>().enabled = false;
 			levelManager.RespawnPlayers();
 		}
+		
+		if(other.gameObject.tag == "Player" || other.gameObject.name == "swimmerCharacter") {
+			Physics2D.IgnoreCollision(gameObject.GetComponent<BoxCollider2D>(), other.gameObject.GetComponent<BoxCollider2D>(), true);
+		}
 	}
 
 	protected void OnTriggerEnter2D(Collider2D other){
