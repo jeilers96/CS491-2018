@@ -11,6 +11,7 @@ public class LevelManager : MonoBehaviour {
 	public static LevelManager instance;
 	public static GameController gameController;
 	public bool retrieveSaveData = true;
+	public bool shouldUseSpawnPoints = false;
 	public Transform playerOne;
 	public Transform playerTwo;
 	public List<GameObject> playerOneCharacters;
@@ -44,10 +45,6 @@ public class LevelManager : MonoBehaviour {
 
 	void Awake(){
 		instance = this;
-		SetCameraAndPlayerPositions (false);
-		if (retrieveSaveData) {
-			Load ();
-		}
 		
 		if(Array.IndexOf(System.IO.Ports.SerialPort.GetPortNames(), "COM1") >= 0) {
 			serial = new SerialPort("COM1", 9600);
@@ -71,6 +68,11 @@ public class LevelManager : MonoBehaviour {
 		if(GameObject.Find("SpawnPoints") != null) {
 			SpawnPointsTransform = GameObject.Find("SpawnPoints").transform;
 			SetSpawnPointPositions ();
+		}
+
+		SetCameraAndPlayerPositions (shouldUseSpawnPoints);
+		if (retrieveSaveData) {
+			Load ();
 		}
 		
 		if(GameObject.Find("GameController") != null) {
@@ -107,10 +109,10 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	public void SetNewSpawnPoint(){
-		if (spawnPointIndex != spawnPoints.Count - 1) {
+		if (spawnPointIndex != spawnPoints.Count) {
 			spawnPointManager.spawnPointsActive [spawnPointIndex] = false;
 			spawnPointIndex++;
-		}
+		} 
 	}
 
 	public void Save(){
@@ -120,17 +122,17 @@ public class LevelManager : MonoBehaviour {
 
 	public void Load(){
 		SaveLoadManager.LoadLevelManager (ref spawnPointIndex);
-		SetCameraAndPlayerPositions (true);
+		SetCameraAndPlayerPositions (shouldUseSpawnPoints);
 	}
 
 	void SetCameraAndPlayerPositions(bool shouldUseSpawnPoints){
-		if(spawnPoints.Count > 0) {
+		if(spawnPoints.Count > 0 && spawnPointIndex > 0) {
 			if (!shouldUseSpawnPoints) {
 				Camera.main.transform.position = playerOne.position;
 			} else {
-				Camera.main.transform.position = spawnPoints [spawnPointIndex];
-				playerOne.position = spawnPoints [spawnPointIndex];
-				Vector3 playerTwoPosition = spawnPoints [spawnPointIndex];
+				Camera.main.transform.position = spawnPoints [spawnPointIndex - 1];
+				playerOne.position = spawnPoints [spawnPointIndex - 1];
+				Vector3 playerTwoPosition = spawnPoints [spawnPointIndex - 1];
 				playerTwoPosition.x -= 2.5f;
 				playerTwo.position = playerTwoPosition;
 			}
@@ -150,10 +152,7 @@ public class LevelManager : MonoBehaviour {
 			for (int i = 0; i < SpawnPointsTransform.childCount; i++) {
 				spawnPoints.Add (SpawnPointsTransform.GetChild (i).position);
 			}
-		} else {
-			print ("SpawnPointsTransform is required by the level manager");
-		}
-
+		} 
 	}
 
 	public List<Vector3> GetSpawnPoints(){
