@@ -114,7 +114,7 @@ public class LevelManager : MonoBehaviour {
 
 	public void SetNewSpawnPoint(){
 		if (spawnPointIndex != spawnPoints.Count) {
-			spawnPointManager.spawnPointsActive [spawnPointIndex] = false;
+			spawnPointManager.spawnPointsActive [spawnPointIndex - 1] = false;
 			spawnPointIndex++;
 		} 
 	}
