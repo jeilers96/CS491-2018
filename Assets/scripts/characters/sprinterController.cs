@@ -5,7 +5,8 @@ using UnityEngine;
 public class sprinterController : ingameCharacter {
 	private Rigidbody2D rigid2D;
 	
-	const float DEFAULT_SPRINT_MODIFIER = 1.5f;
+	const float DEFAULT_SPRINT_MODIFIER_HARDWARE = 1.5f;
+	const float DEFAULT_SPRINT_MODIFIER = 2.0f;
 
 	// Use this for initialization
 	void Start () {
@@ -63,7 +64,11 @@ public class sprinterController : ingameCharacter {
 	}
 	
 	public override void playerAction(Rigidbody2D rigidBody) {
-		moveSpeed *= DEFAULT_SPRINT_MODIFIER;
+		if(levelManager.serial != null) {
+			moveSpeed *= DEFAULT_SPRINT_MODIFIER_HARDWARE;
+		} else {
+			moveSpeed *= DEFAULT_SPRINT_MODIFIER;
+		}
 	}
 	
 	public override void resetPlayerState() {
