@@ -49,6 +49,10 @@ public class LevelManager : MonoBehaviour {
 			Load ();
 		}
 		
+		if(Array.IndexOf(System.IO.Ports.SerialPort.GetPortNames(), "COM3") >= 0) {
+			serial = new SerialPort("COM3", 9600);
+		}
+		
 		if(Array.IndexOf(System.IO.Ports.SerialPort.GetPortNames(), "COM1") >= 0) {
 			serial = new SerialPort("COM1", 9600);
 		}
