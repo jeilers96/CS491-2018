@@ -181,7 +181,7 @@ public abstract class ingameCharacter : MonoBehaviour {
 		}
 		
 		if(other.gameObject.tag == "Player" || other.gameObject.name == "swimmerCharacter") {
-			Physics2D.IgnoreCollision(gameObject.GetComponent<BoxCollider2D>(), other.gameObject.GetComponent<BoxCollider2D>(), true);
+			Physics2D.IgnoreCollision(gameObject.GetComponent<BoxCollider2D>(), other.gameObject.GetComponent<BoxCollider2D>());
 		}
 	}
 
