@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class laserBulletBehavior : MonoBehaviour {
-	protected float directionMod;
-	
 	private Rigidbody2D rigid2D;
 	private float initialX;
 	private float initialY;
@@ -27,8 +25,10 @@ public class laserBulletBehavior : MonoBehaviour {
 		}
 	}
 	
-	protected void OnCollisionEnter2D() {
-		Destroy(gameObject);
+	protected void OnCollisionEnter2D(Collision2D col) {
+		if (col.gameObject.name != "laserBullet") {
+			Destroy(gameObject);
+		}
 	}
 	
 	protected void OnTriggerEnter2D() {

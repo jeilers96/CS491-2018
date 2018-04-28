@@ -18,7 +18,8 @@ public class turretBehavior : MonoBehaviour {
 		currentTime += Time.deltaTime;
 
 		if (!shotOnce && currentTime >= Offset) {
-			ShootBullet (true);
+			shotOnce = true;
+			ShootBullet ();
 		}
 
 		if (currentTime >= TimeBetweenShots) {
@@ -26,15 +27,11 @@ public class turretBehavior : MonoBehaviour {
 		}
 	}
 
-	public void ShootBullet(bool setShotOnce = false){
+	public void ShootBullet(){
 		GameObject bullet = Instantiate (laserBullet, transform.position, Quaternion.identity);
 		bullet.transform.rotation = transform.rotation;
 		bullet.transform.Rotate (0, 0, 90);
 		bullet.GetComponent<Rigidbody2D> ().velocity = -transform.up * bulletSpeed;
-
-		if (setShotOnce) {
-			shotOnce = true;
-		}
 
 		currentTime = 0;
 	}

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RotateLaser : MonoBehaviour {
-	public Transform laserToRotate;
+	public GameObject laserToRotate;
 	public float rotateAmount = 0;
 	public bool stayRotated = true;
 
@@ -15,26 +15,30 @@ public class RotateLaser : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D() {
-		if (laserToRotate != null && !rotated) {
-			laserToRotate.Rotate (0, 0, rotateAmount);
-			rotated = true;
-			turretBehavior tb = laserToRotate.gameObject.GetComponent<turretBehavior> ();
-			if (tb != null) {
-				tb.ShootBullet ();
-				tb.enabled = false;
-			}
+		if (laserToRotate == null) {
+			print ("laserToRototate needs to be assigned:");
 		} else {
-			print ("no transform assigned on button: " + gameObject.name);
+			if (!rotated) {
+				laserToRotate.transform.Rotate (0, 0, rotateAmount);
+				rotated = true;
+				turretBehavior tb = laserToRotate.gameObject.GetComponent<turretBehavior> ();
+				if (tb != null) {
+					tb.ShootBullet ();
+					tb.enabled = false;
+				}
+			}
 		}
 
 		anim.SetBool("down",true);
 	}
 
 	void OnTriggerExit2D() {
-		if (laserToRotate != null && !stayRotated) {
-			laserToRotate.Rotate (0, 0, -rotateAmount);
+		if (laserToRotate == null) {
+			print ("laserToRototate needs to be assigned:");
 		} else {
-			print ("no transform assigned on button: " + gameObject.name);
+			if (!stayRotated) {
+				laserToRotate.transform.Rotate (0, 0, -rotateAmount);
+			}
 		}
 
 		anim.SetBool("down",false);
