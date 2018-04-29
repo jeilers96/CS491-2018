@@ -92,7 +92,7 @@ public class LevelManager : MonoBehaviour {
 		playerOne = newCharacter.transform;
 		PlayerOneIndex++;
 		PlayerOneIndex %= playerOneCharacters.Count;
-		//playerUIManager.UpdatePlayer1UI ();
+		playerUIManager.UpdatePlayer1UI ();
 	}
 
 	/// <summary>
@@ -103,7 +103,7 @@ public class LevelManager : MonoBehaviour {
 		playerTwo = newCharacter.transform;
 		PlayerTwoIndex++;
 		PlayerTwoIndex %= playerTwoCharacters.Count;
-		//playerUIManager.UpdatePlayer2UI ();
+		playerUIManager.UpdatePlayer2UI ();
 	}
 
 	public void RespawnPlayers(){
