@@ -45,16 +45,17 @@ public class LevelManager : MonoBehaviour {
 
 	void Awake(){
 		instance = this;
-		
 		if(Array.IndexOf(System.IO.Ports.SerialPort.GetPortNames(), "COM3") >= 0) {
 			serial1 = new SerialPort("COM3", 9600);
+			
 		}
 		
 		if(Array.IndexOf(System.IO.Ports.SerialPort.GetPortNames(), "COM1") >= 0) {
 			serial2 = new SerialPort("COM1", 9600);
+			
 		}
 		
-		if(serial1 != null) {
+		/*if(serial1 != null) {
 			if(!serial1.IsOpen) {
 				serial1.Open();
 			}
@@ -66,10 +67,31 @@ public class LevelManager : MonoBehaviour {
 				serial2.Open();
 			}
 			serial2.ReadTimeout = 1;
-		}
+		}*/
 	}
 
 	void Start(){
+		if (serial1 != null) {
+			serial1.Open();
+		}
+		
+		if (serial2 != null) {
+			serial2.Open();
+		}
+		
+		if(serial1.IsOpen) {
+			 Debug.Log("Port 1 opened");
+		}  else {
+			Debug.Log("Could not open port 1");
+
+		}
+		
+		if(serial2.IsOpen) {
+			 Debug.Log("Port 2 opened");
+		}  else {
+			Debug.Log("Could not open port 2");
+
+		}
 		spawnPointManager = SpawnPointManager.instance;
 		playerUIManager = PlayerUIManager.instance;
 		if (retrieveSaveData) {
@@ -114,7 +136,7 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	public void RespawnPlayers(){
-		Save ();
+		//Save ();
 		SceneManager.LoadScene (SceneManager.GetActiveScene().name);
 
 	}
