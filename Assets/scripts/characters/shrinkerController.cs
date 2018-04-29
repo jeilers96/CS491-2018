@@ -58,14 +58,12 @@ public class shrinkerController : ingameCharacter {
 			else if(Input.GetKeyUp(keyAction)) {
 				resetPlayerState();
 			}
-			
+
 			//switch character (no hardware)
 			if(Input.GetKeyDown(keySwap)) {
 				swapCharacter();
 			}
 		}
-		
-		
 	}
 	
 	public override void playerAction(Rigidbody2D rigidBody) {
@@ -76,6 +74,8 @@ public class shrinkerController : ingameCharacter {
 		else {
 			GameObject.Instantiate(normalCharacter, new Vector2(characterPosition.x, characterPosition.y + DEFAULT_SHRINK_OFFSET), Quaternion.identity);
 		}
+
+		//TODO: need to update level manager to reassign the playerOne or playerTwo value so it doesn't mess up the camera
 
 		Destroy(gameObject);
 	}

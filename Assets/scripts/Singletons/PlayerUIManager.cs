@@ -42,6 +42,16 @@ public class PlayerUIManager : MonoBehaviour {
 			characterThumbnails.Add (thumbnail);
 		}
 
+		thumbnail = Resources.Load<Sprite> ("shrinkerthumbnail");
+		if (thumbnail != null) {
+			characterThumbnails.Add (thumbnail);
+		}
+
+		thumbnail = Resources.Load<Sprite> ("gravitymanThumbnail");
+		if (thumbnail != null) {
+			characterThumbnails.Add (thumbnail);
+		}
+
 		GeneratePlayerUI ();
 
 		UpdatePlayer1UI ();
@@ -72,6 +82,12 @@ public class PlayerUIManager : MonoBehaviour {
 					case "sprinterCharacter":
 						CreatePlayerCell (player1Characters, 3);
 						break;
+					case "shrinkerCharacter":
+						CreatePlayerCell (player1Characters, 4);
+						break;
+					case "gravityCharacter":
+						CreatePlayerCell (player1Characters, 5);
+						break;
 					default:
 						break;
 					}
@@ -96,6 +112,12 @@ public class PlayerUIManager : MonoBehaviour {
 						break;
 					case "sprinterCharacter":
 						CreatePlayerCell (player2Characters, 3);
+						break;
+					case "shrinkerCharacter":
+						CreatePlayerCell (player2Characters, 4);
+						break;
+					case "gravityCharacter":
+						CreatePlayerCell (player2Characters, 5);
 						break;
 					default:
 						break;

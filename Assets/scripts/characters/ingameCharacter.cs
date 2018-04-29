@@ -175,7 +175,7 @@ public abstract class ingameCharacter : MonoBehaviour {
 			levelManager.RespawnPlayers();
 		}
 		
-		if(other.gameObject.name == "playerHazard") {
+		if(other.gameObject.name == "playerHazard" || other.gameObject.tag == "spikes") {
 			GetComponent<SpriteRenderer>().enabled = false;
 			levelManager.RespawnPlayers();
 		}

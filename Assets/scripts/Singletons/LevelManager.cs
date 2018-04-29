@@ -11,7 +11,6 @@ public class LevelManager : MonoBehaviour {
 	public static LevelManager instance;
 	public static GameController gameController;
 	public bool retrieveSaveData = true;
-	public bool shouldUseSpawnPoints = false;
 	public Transform playerOne;
 	public Transform playerTwo;
 	public List<GameObject> playerOneCharacters;
@@ -74,7 +73,7 @@ public class LevelManager : MonoBehaviour {
 			SetSpawnPointPositions ();
 		}
 
-		SetCameraAndPlayerPositions (shouldUseSpawnPoints);
+		SetCameraAndPlayerPositions ();
 		if (retrieveSaveData) {
 			Load ();
 		}
@@ -126,20 +125,17 @@ public class LevelManager : MonoBehaviour {
 
 	public void Load(){
 		SaveLoadManager.LoadLevelManager (ref spawnPointIndex);
-		SetCameraAndPlayerPositions (shouldUseSpawnPoints);
+		SetCameraAndPlayerPositions ();
 	}
 
-	void SetCameraAndPlayerPositions(bool shouldUseSpawnPoints){
+	void SetCameraAndPlayerPositions(){
 		if(spawnPoints.Count > 0 && spawnPointIndex > 0) {
-			if (!shouldUseSpawnPoints) {
-				Camera.main.transform.position = playerOne.position;
-			} else {
-				Camera.main.transform.position = spawnPoints [spawnPointIndex - 1];
-				playerOne.position = spawnPoints [spawnPointIndex - 1];
-				Vector3 playerTwoPosition = spawnPoints [spawnPointIndex - 1];
-				playerTwoPosition.x -= 2.5f;
-				playerTwo.position = playerTwoPosition;
-			}
+			print ("setting pos to: " + spawnPoints [spawnPointIndex - 1]);
+			Camera.main.transform.position = spawnPoints [spawnPointIndex - 1];
+			playerOne.position = spawnPoints [spawnPointIndex - 1];
+			Vector3 playerTwoPosition = spawnPoints [spawnPointIndex - 1];
+			playerTwoPosition.x -= 2.5f;
+			playerTwo.position = playerTwoPosition;
 		}
 	}
 
