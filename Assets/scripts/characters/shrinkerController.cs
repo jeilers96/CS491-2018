@@ -21,7 +21,7 @@ public class shrinkerController : ingameCharacter {
 		//check if character is grounded
 		grounded();
 		
-		if(levelManager.serial != null) {
+		if(serial != null) {
 			//get input from hardware 
 			getBytesFromInput();
 			//get input and move player accordingly 

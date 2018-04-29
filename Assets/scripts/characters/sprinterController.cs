@@ -19,7 +19,7 @@ public class sprinterController : ingameCharacter {
 		//check if character is grounded
 		grounded();
 		
-		if(levelManager.serial != null) {
+		if(serial != null) {
 			//get input from hardware 
 			getBytesFromInput();
 			//get input and move player accordingly 
@@ -64,7 +64,7 @@ public class sprinterController : ingameCharacter {
 	}
 	
 	public override void playerAction(Rigidbody2D rigidBody) {
-		if(levelManager.serial != null) {
+		if(serial != null) {
 			moveSpeed *= DEFAULT_SPRINT_MODIFIER_HARDWARE;
 		} else {
 			moveSpeed *= DEFAULT_SPRINT_MODIFIER;
