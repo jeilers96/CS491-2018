@@ -18,7 +18,8 @@ public class LevelManager : MonoBehaviour {
 	public int spawnPointIndex = 0;
 	public int PlayerOneIndex = 0;
 	public int PlayerTwoIndex = 0;
-	public SerialPort serial;
+	public SerialPort serial1;
+	public SerialPort serial2;
 	public List<Vector3> spawnPoints = new List<Vector3>();
 
 	private Transform SpawnPointsTransform;
@@ -46,18 +47,25 @@ public class LevelManager : MonoBehaviour {
 		instance = this;
 		
 		if(Array.IndexOf(System.IO.Ports.SerialPort.GetPortNames(), "COM3") >= 0) {
-			serial = new SerialPort("COM3", 9600);
+			serial1 = new SerialPort("COM3", 9600);
 		}
 		
 		if(Array.IndexOf(System.IO.Ports.SerialPort.GetPortNames(), "COM1") >= 0) {
-			serial = new SerialPort("COM1", 9600);
+			serial2 = new SerialPort("COM1", 9600);
 		}
 		
-		if(serial != null) {
-			if(!serial.IsOpen) {
-				serial.Open();
+		if(serial1 != null) {
+			if(!serial1.IsOpen) {
+				serial1.Open();
 			}
-			serial.ReadTimeout = 1;
+			serial1.ReadTimeout = 1;
+		}
+		
+		if(serial2 != null) {
+			if(!serial2.IsOpen) {
+				serial2.Open();
+			}
+			serial2.ReadTimeout = 1;
 		}
 	}
 

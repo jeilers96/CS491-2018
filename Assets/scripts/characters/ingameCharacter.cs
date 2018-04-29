@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System.IO.Ports;
 
 public abstract class ingameCharacter : MonoBehaviour {
 	public float moveSpeed;
@@ -25,6 +26,7 @@ public abstract class ingameCharacter : MonoBehaviour {
 	protected KeyCode keyJump;
 	protected KeyCode keyAction;
 	protected KeyCode keySwap;
+	protected SerialPort serial;
 	protected int byteRead;
 	
 	protected const float DEFAULT_MOVE_SPEED = 8.0f;
@@ -49,13 +51,13 @@ public abstract class ingameCharacter : MonoBehaviour {
 	}
 	
 	protected void getBytesFromInput(){
-		if(levelManager.serial.BytesToRead > 0) {
-			byteRead = levelManager.serial.ReadByte();
+		if(serial.BytesToRead > 0) {
+			byteRead = serial.ReadByte();
 		} 
 	}
 	protected void playerMove(Rigidbody2D rigidBody) {
 		
-		if(levelManager.serial == null) {
+		if(serial == null) {
 			if(Input.GetKey(keyRight)) {
 				movementDirection = 1;
 			} else if(Input.GetKey(keyLeft)) {
@@ -130,6 +132,7 @@ public abstract class ingameCharacter : MonoBehaviour {
 
 		setNextCharacter(playerNum);
 		setKeyCodes(playerNum);
+		setSerialPort(playerNum);
 	}
 	
 	protected void setNextCharacter(int playerNum) {
@@ -157,7 +160,13 @@ public abstract class ingameCharacter : MonoBehaviour {
 			keyAction = levelManager.player2KeyCodes[4];
 		}
 	}
-	
+	protected void  setSerialPort(int playerNum) {
+		if(playerNum == 1) {
+			serial = levelManager.serial1;
+		} else if(playerNum == 2) {
+			serial = levelManager.serial2;
+		}
+	}
 	protected void flip() {
 		facingRight = !facingRight;
         Vector3 theScale = transform.localScale;
@@ -170,12 +179,7 @@ public abstract class ingameCharacter : MonoBehaviour {
 			levelManager.RespawnPlayers();
 		}
 		 
-		if(other.gameObject.name == "laserBullet") {
-			GetComponent<SpriteRenderer>().enabled = false;
-			levelManager.RespawnPlayers();
-		}
-		
-		if(other.gameObject.name == "playerHazard" || other.gameObject.tag == "spikes") {
+		if(other.gameObject.name == "laserBullet" || other.gameObject.name == "playerHazard" || other.gameObject.tag == "spikes") {
 			GetComponent<SpriteRenderer>().enabled = false;
 			levelManager.RespawnPlayers();
 		}

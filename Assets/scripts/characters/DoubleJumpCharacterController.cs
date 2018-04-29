@@ -20,7 +20,7 @@ public class DoubleJumpCharacterController : ingameCharacter {
 	void Update () {
 		grounded();
 		//get input and move player accordingly 
-		if(levelManager.serial != null) {
+		if(serial != null) {
 			//get input from hardware 
 			getBytesFromInput();
 			//get input and move player accordingly 
