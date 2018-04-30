@@ -59,4 +59,10 @@ public class PauseMenu : MonoBehaviour {
 		Debug.Log ("Quitting game...");
 		Application.Quit ();
 	}
+
+	//Pause menu should be 
+	//Resume
+	//Main Menu
+	//Restart Level
+	//Respawn from checkpoint
 }
