@@ -50,6 +50,9 @@ public class SceneLoader : MonoBehaviour {
 		int nextScene;
 		
 		switch(scene.name) {
+			case "LoadingScreen":
+				nextScene = 1;
+				break;
 			default:
 				nextScene = 0;
 				break;
