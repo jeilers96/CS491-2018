@@ -32,18 +32,26 @@ public class GameController : MonoBehaviour {
 		string sceneName = currentScene.name;
 
 		switch (sceneName){
-		case "speed_boost":
-			SceneManager.LoadScene("1-Tutorial");
+		case "LoadingScreen":
+			SceneManager.LoadScene("Tutorial 1");
 			break;
-		case "1-Tutorial":
-			SceneManager.LoadScene("2-Tutorial");
+		case "Tutorial 1":
+			SceneManager.LoadScene("Tutorial 2");
 			break;
-		case "2-Tutorial":
+		case "Tutorial 2":
 			SceneManager.LoadScene("Level 1-1");
 			break;
 		case "Level 1-1":
+			SceneManager.LoadScene("Level 1-2");
+			break;
+		case "Level 1-2":
+			SceneManager.LoadScene("Tutorial 3");
+			break;
+		case "Tutorial 3":
+			SceneManager.LoadScene("Level 2-1");
 			break;
 		default:
+			SceneManager.LoadScene("LoadingScreen");
 			break;
 		}
 	}
