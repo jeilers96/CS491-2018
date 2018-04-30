@@ -197,4 +197,13 @@ public class LevelManager : MonoBehaviour {
 			gameController.p2AtTeleporter = isAtTeleporter;
 		}
 	}
+	
+	void OnDestroy() {
+		if(serial1 != null) {
+			serial1.Close();
+		}
+		if(serial2 != null) {
+			serial2.Close();
+		}
+	}
 }
