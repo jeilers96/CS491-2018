@@ -32,7 +32,8 @@ public class DoubleJumpCharacterController : ingameCharacter {
 				jumpStartTime = Time.time + jumpDelay;
 				hasSecondJump = true;
 				byteRead = byteRead & ~(1 << 2);
-			} else if (hasSecondJump && !isGrounded && Input.GetKeyDown(keyJump) && (Time.time > jumpStartTime)) {
+			} else if (hasSecondJump && !isGrounded && (byteRead & (1 << 2)) == 4 && (Time.time > jumpStartTime)) {
+				print("second jump");
 				playerJump (rigid2D);
 				hasSecondJump = false;
 				byteRead = byteRead & ~(1 << 2);

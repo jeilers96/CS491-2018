@@ -51,7 +51,7 @@ public abstract class ingameCharacter : MonoBehaviour {
 	}
 	
 	protected void getBytesFromInput(){
-		if(serial.BytesToRead > 0) {
+		if(serial.BytesToRead > 0 && serial != null) {
 			byteRead = serial.ReadByte();
 		} 
 	}
