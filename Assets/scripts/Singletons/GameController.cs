@@ -55,4 +55,7 @@ public class GameController : MonoBehaviour {
 			break;
 		}
 	}
+		
+	// make main menu have just new game button
+	//new game - erases all save data and loads first scene
 }
