@@ -137,6 +137,7 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	void SetCameraAndPlayerPositions(){
+		print ("spawn point count " + spawnPoints.Count + " spawnPointIndex " + spawnPointIndex);
 		if(spawnPoints.Count > 0 && spawnPointIndex > 0) {
 			print ("setting pos to: " + spawnPoints [spawnPointIndex - 1]);
 			Camera.main.transform.position = spawnPoints [spawnPointIndex - 1];
