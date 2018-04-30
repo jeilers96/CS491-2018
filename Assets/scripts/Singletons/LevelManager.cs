@@ -79,14 +79,14 @@ public class LevelManager : MonoBehaviour {
 			serial2.Open();
 		}
 		
-		if(serial1.IsOpen) {
+		if(serial1 != null && serial1.IsOpen) {
 			 Debug.Log("Port 1 opened");
 		}  else {
 			Debug.Log("Could not open port 1");
 
 		}
 		
-		if(serial2.IsOpen) {
+		if(serial2 != null && serial2.IsOpen) {
 			 Debug.Log("Port 2 opened");
 		}  else {
 			Debug.Log("Could not open port 2");
@@ -136,7 +136,7 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	public void RespawnPlayers(){
-		//Save ();
+		Save ();
 		SceneManager.LoadScene (SceneManager.GetActiveScene().name);
 
 	}
