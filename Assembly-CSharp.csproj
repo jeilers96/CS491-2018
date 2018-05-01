@@ -80,11 +80,6 @@
      <Compile Include="Assets\scripts\objects\switchController.cs" />
      <Compile Include="Assets\scripts\objects\targetController.cs" />
      <Compile Include="Assets\scripts\objects\turretBehavior.cs" />
-     <Compile Include="Assets\scripts\Possibly useful stuff\CreateBuyableObject.cs" />
-     <Compile Include="Assets\scripts\Possibly useful stuff\LevelController.cs" />
-     <Compile Include="Assets\scripts\Possibly useful stuff\LevelSelector.cs" />
-     <Compile Include="Assets\scripts\Possibly useful stuff\LevelSelectorManager.cs" />
-     <Compile Include="Assets\scripts\Possibly useful stuff\Tags.cs" />
      <Compile Include="Assets\scripts\Singletons\GameController.cs" />
      <Compile Include="Assets\scripts\Singletons\LevelManager.cs" />
      <Compile Include="Assets\scripts\Singletons\PlayerUIManager.cs" />
