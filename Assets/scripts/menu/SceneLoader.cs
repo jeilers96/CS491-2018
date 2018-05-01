@@ -37,6 +37,8 @@ public class SceneLoader : MonoBehaviour {
 		yield return new WaitForSeconds(3);
 
 		// Start an asynchronous operation to load the scene that was passed to the LoadNewScene coroutine.
+		SaveLoadManager.DeleteSpawnPointsManagerSaveData();
+		SaveLoadManager.DeleteLevelManagerSaveData ();
 		AsyncOperation async = SceneManager.LoadSceneAsync(scene);
 
 		// While the asynchronous operation to load the new scene is not yet complete, continue waiting until it's done.

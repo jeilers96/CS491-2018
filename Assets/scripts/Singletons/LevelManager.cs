@@ -40,9 +40,6 @@ public class LevelManager : MonoBehaviour {
 		KeyCode.LeftArrow, KeyCode.RightArrow, KeyCode.UpArrow, KeyCode.K, KeyCode.L
 	};
 
-	private float pauseGameSpeed = 0.0f;
-	private float regularGameSpeed = 1.0f;
-
 	void Awake(){
 		instance = this;
 		if(Array.IndexOf(System.IO.Ports.SerialPort.GetPortNames(), "COM3") >= 0) {
@@ -92,6 +89,7 @@ public class LevelManager : MonoBehaviour {
 			Debug.Log("Could not open port 2");
 
 		}
+
 		spawnPointManager = SpawnPointManager.instance;
 		playerUIManager = PlayerUIManager.instance;
 		if (retrieveSaveData) {
@@ -109,7 +107,7 @@ public class LevelManager : MonoBehaviour {
 		}
 		
 		if(GameObject.Find("GameController") != null) {
-			gameController = GameObject.Find("GameController").GetComponent<GameController>();
+			gameController = GameController.gameController;
 		}
 	}
 
@@ -138,7 +136,6 @@ public class LevelManager : MonoBehaviour {
 	public void RespawnPlayers(){
 		Save ();
 		SceneManager.LoadScene (SceneManager.GetActiveScene().name);
-
 	}
 
 	public void SetNewSpawnPoint(){
@@ -159,9 +156,7 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	void SetCameraAndPlayerPositions(){
-		print ("spawn point count " + spawnPoints.Count + " spawnPointIndex " + spawnPointIndex);
-		if(spawnPoints.Count > 0 && spawnPointIndex > 0) {
-			print ("setting pos to: " + spawnPoints [spawnPointIndex - 1]);
+		if (spawnPoints.Count > 0 && spawnPointIndex > 0) {
 			Camera.main.transform.position = spawnPoints [spawnPointIndex - 1];
 			playerOne.position = spawnPoints [spawnPointIndex - 1];
 			Vector3 playerTwoPosition = spawnPoints [spawnPointIndex - 1];

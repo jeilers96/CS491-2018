@@ -12,7 +12,9 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	public void StartNewGame(){
-		SceneManager.LoadScene ("Level 1");
+		SaveLoadManager.DeleteSpawnPointsManagerSaveData();
+		SaveLoadManager.DeleteLevelManagerSaveData ();
+		SceneManager.LoadScene ("Tutorial 1");
 	}
 
 	public void QuitGame(){

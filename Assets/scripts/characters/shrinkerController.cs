@@ -15,6 +15,11 @@ public class shrinkerController : ingameCharacter {
 		gameObject.name = "shrinkerCharacter";
 		base.Start();
 		rigid2D = GetComponent<Rigidbody2D>();
+		if (playerNum == 1) {
+			levelManager.playerOne = transform;
+		} else {
+			levelManager.playerTwo = transform;
+		}
 	}
 	
 	void Update () {
@@ -74,8 +79,6 @@ public class shrinkerController : ingameCharacter {
 		else {
 			GameObject.Instantiate(normalCharacter, new Vector2(characterPosition.x, characterPosition.y + DEFAULT_SHRINK_OFFSET), Quaternion.identity);
 		}
-
-		//TODO: need to update level manager to reassign the playerOne or playerTwo value so it doesn't mess up the camera
 
 		Destroy(gameObject);
 	}
