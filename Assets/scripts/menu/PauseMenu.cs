@@ -13,6 +13,10 @@ public class PauseMenu : MonoBehaviour {
 	private LevelManager levelManager;
 	private GameObject selectedButton;
 
+	void Awake(){
+		Time.timeScale = 1.0f;
+	}
+
 	void Start(){
 		levelManager = LevelManager.instance;
 		Transform pauseMenu = gameObject.transform.GetChild (0);
@@ -68,11 +72,11 @@ public class PauseMenu : MonoBehaviour {
 
 	public void Restart(){
 		levelManager.DeleteSaveData ();
-		SceneManager.LoadScene (SceneManager.GetActiveScene().name);
+		levelManager.RespawnPlayers ();
 	}
 
 	public void Respawn(){
-		SceneManager.LoadScene (SceneManager.GetActiveScene().name);
+		levelManager.RespawnPlayers ();
 	}
 
 	public void LoadMainMenu(){

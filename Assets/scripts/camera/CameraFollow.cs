@@ -25,14 +25,12 @@ public class CameraFollow : MonoBehaviour {
 	}
 
 	void FixedUpdate(){
-		print ("Running here");
 		levelManager.playerOne.position = KeepPlayerInCameraBounds (levelManager.playerOne);
 		levelManager.playerTwo.position = KeepPlayerInCameraBounds (levelManager.playerTwo);
 
 		playerOneDesiredPosition = levelManager.playerOne.position + offset;
 		playerTwoDesiredPosition = levelManager.playerTwo.position + offset;
 		averagePlayerPosition = (playerOneDesiredPosition + playerTwoDesiredPosition) / 2;
-		print ("Average pos: " + averagePlayerPosition);
 		transform.position = Vector3.Lerp (transform.position, averagePlayerPosition, smoothSpeed);
 	}
 

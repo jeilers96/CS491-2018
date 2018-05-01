@@ -157,18 +157,12 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	void SetCameraAndPlayerPositions(){
-		print ("spawn point count " + spawnPoints.Count + " spawnPointIndex " + spawnPointIndex);
 		if (spawnPoints.Count > 0 && spawnPointIndex > 0) {
-			print ("setting pos to: " + spawnPoints [spawnPointIndex - 1]);
 			Camera.main.transform.position = spawnPoints [spawnPointIndex - 1];
 			playerOne.position = spawnPoints [spawnPointIndex - 1];
 			Vector3 playerTwoPosition = spawnPoints [spawnPointIndex - 1];
 			playerTwoPosition.x -= 2.5f;
 			playerTwo.position = playerTwoPosition;
-		} else {
-//			Vector3 adjustedPos = new Vector3 (playerOne.position.x, playerOne.position.y, playerOne.position.z - 10f);
-//			Camera.main.transform.position = adjustedPos;
-//			print ("Setting camera pos to: " + adjustedPos);
 		}
 	}
 

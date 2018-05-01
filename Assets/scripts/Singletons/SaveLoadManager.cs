@@ -79,8 +79,6 @@ public static class SaveLoadManager{
 			File.Delete (SpawnPointManagerFilePath);
 		}
 	}
-
-
 }
 
 [Serializable]
@@ -90,12 +88,6 @@ public class LevelManagerData {
 	public LevelManagerData(LevelManager levelManager){
 		playerSpawnPositions = new float[6];
 		spawnPointIndex = levelManager.spawnPointIndex;
-//		playerSpawnPositions [0] = levelManager.playerOne.position.x;
-//		playerSpawnPositions [1] = levelManager.playerOne.position.y;
-//		playerSpawnPositions [2] = levelManager.playerOne.position.z;
-//		playerSpawnPositions [3] = levelManager.playerTwo.position.x;
-//		playerSpawnPositions [4] = levelManager.playerTwo.position.y;
-//		playerSpawnPositions [5] = levelManager.playerTwo.position.z;
 	}
 }
 

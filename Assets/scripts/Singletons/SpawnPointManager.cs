@@ -9,14 +9,16 @@ public class SpawnPointManager : MonoBehaviour {
 	public int playersInSpawnPoint;
 
 	private LevelManager levelManager;
+	private int spawnPointsCount;
 
 	void Awake(){
 		instance = this;
+		spawnPointsCount = transform.childCount;
+		spawnPointsActive = new bool[spawnPointsCount]; 
 	}
 
 	void Start(){
 		levelManager = LevelManager.instance;
-		spawnPointsActive = new bool[transform.childCount]; 
 		for(int i = 0; i < spawnPointsActive.Length; i++) {
 			spawnPointsActive[i] = true;
 		}
@@ -26,7 +28,7 @@ public class SpawnPointManager : MonoBehaviour {
 		if (levelManager.retrieveSaveData) {
 			Load ();
 
-			for (int i = 0; i < transform.childCount; i++) {
+			for (int i = 0; i < spawnPointsActive.Length; i++) {
 				if (!spawnPointsActive [i]) {
 					transform.GetChild (i).gameObject.SetActive (false);
 				}
