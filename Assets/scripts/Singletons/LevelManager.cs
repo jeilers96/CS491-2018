@@ -40,9 +40,6 @@ public class LevelManager : MonoBehaviour {
 		KeyCode.LeftArrow, KeyCode.RightArrow, KeyCode.UpArrow, KeyCode.K, KeyCode.L
 	};
 
-	private float pauseGameSpeed = 0.0f;
-	private float regularGameSpeed = 1.0f;
-
 	void Awake(){
 		instance = this;
 		if(Array.IndexOf(System.IO.Ports.SerialPort.GetPortNames(), "COM3") >= 0) {
@@ -92,6 +89,7 @@ public class LevelManager : MonoBehaviour {
 			Debug.Log("Could not open port 2");
 
 		}
+
 		spawnPointManager = SpawnPointManager.instance;
 		playerUIManager = PlayerUIManager.instance;
 		if (retrieveSaveData) {
@@ -109,7 +107,7 @@ public class LevelManager : MonoBehaviour {
 		}
 		
 		if(GameObject.Find("GameController") != null) {
-			gameController = GameObject.Find("GameController").GetComponent<GameController>();
+			gameController = GameController.gameController;
 		}
 	}
 

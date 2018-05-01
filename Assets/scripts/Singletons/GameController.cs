@@ -10,6 +10,8 @@ public class GameController : MonoBehaviour {
 	public bool p1AtTeleporter = false;
 	public bool p2AtTeleporter = false;
 
+	private LevelManager levelManager;
+
 	void Awake(){
 		if (gameController == null) {
 			DontDestroyOnLoad (gameObject);
@@ -17,6 +19,10 @@ public class GameController : MonoBehaviour {
 		} else if (gameController != null) {
 			Destroy (gameObject);
 		}
+	}
+
+	void Start(){
+		levelManager = LevelManager.instance;
 	}
 	
 	void Update() {
@@ -30,6 +36,9 @@ public class GameController : MonoBehaviour {
 	public void LoadNextLevel(){
 		Scene currentScene = SceneManager.GetActiveScene();
 		string sceneName = currentScene.name;
+		if (levelManager != null) {
+			levelManager.DeleteSaveData ();
+		}
 
 		switch (sceneName){
 		case "LoadingScreen":
@@ -55,7 +64,4 @@ public class GameController : MonoBehaviour {
 			break;
 		}
 	}
-		
-	// make main menu have just new game button
-	//new game - erases all save data and loads first scene
 }

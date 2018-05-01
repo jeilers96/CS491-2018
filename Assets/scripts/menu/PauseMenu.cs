@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class PauseMenu : MonoBehaviour {
 
@@ -9,9 +11,22 @@ public class PauseMenu : MonoBehaviour {
 	public GameObject PauseMenuUI;
 
 	private LevelManager levelManager;
+	private GameObject selectedButton;
 
 	void Start(){
 		levelManager = LevelManager.instance;
+		Transform pauseMenu = gameObject.transform.GetChild (0);
+		if (pauseMenu != null && pauseMenu.transform.GetChild (0) != null) {
+			selectedButton = pauseMenu.transform.GetChild (0).gameObject;
+		}
+
+		if (selectedButton != null) {
+			Button button = selectedButton.GetComponent<Button> ();
+			if (button != null) {
+				button.Select ();
+				button.OnSelect (null);
+			}
+		}
 	}
 	
 	// Update is called once per frame
@@ -51,18 +66,21 @@ public class PauseMenu : MonoBehaviour {
 		levelManager.Save ();
 	}
 
-	public void LoadMenu(){
-		SceneManager.LoadScene ("Menu");
+	public void Restart(){
+		levelManager.DeleteSaveData ();
+		SceneManager.LoadScene (SceneManager.GetActiveScene().name);
+	}
+
+	public void Respawn(){
+		SceneManager.LoadScene (SceneManager.GetActiveScene().name);
+	}
+
+	public void LoadMainMenu(){
+		SceneManager.LoadScene ("MainMenu");
 	}
 
 	public void QuitGame(){
 		Debug.Log ("Quitting game...");
 		Application.Quit ();
 	}
-
-	//Pause menu should be 
-	//Resume
-	//Main Menu
-	//Restart Level
-	//Respawn from checkpoint
 }
