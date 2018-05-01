@@ -72,7 +72,7 @@ public class PauseMenu : MonoBehaviour {
 
 	public void Restart(){
 		levelManager.DeleteSaveData ();
-		levelManager.RespawnPlayers ();
+		SceneManager.LoadScene (SceneManager.GetActiveScene().name);
 	}
 
 	public void Respawn(){

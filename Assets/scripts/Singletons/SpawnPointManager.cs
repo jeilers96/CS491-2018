@@ -27,12 +27,6 @@ public class SpawnPointManager : MonoBehaviour {
 
 		if (levelManager.retrieveSaveData) {
 			Load ();
-
-			for (int i = 0; i < spawnPointsActive.Length; i++) {
-				if (!spawnPointsActive [i]) {
-					transform.GetChild (i).gameObject.SetActive (false);
-				}
-			}
 		}
 	}
 
@@ -41,6 +35,16 @@ public class SpawnPointManager : MonoBehaviour {
 	}
 
 	public void Load(){
-		spawnPointsActive = SaveLoadManager.LoadSpawnPointsManager (this);
+		bool[] tempSpawnPointsActive = SaveLoadManager.LoadSpawnPointsManager (this);
+		if (tempSpawnPointsActive != null) {
+			spawnPointsActive = tempSpawnPointsActive;
+			for (int i = 0; i < spawnPointsActive.Length; i++) {
+				if (!spawnPointsActive [i]) {
+					transform.GetChild (i).gameObject.SetActive (false);
+				}
+			}
+		} else {
+			print ("Did not load from file");
+		}
 	}
 }

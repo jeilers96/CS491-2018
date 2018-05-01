@@ -65,12 +65,7 @@ public static class SaveLoadManager{
 
 			return spawnPointManagerData.spawnPointsActive;
 		} else {
-			bool[] defaultSpawnPoints = new bool[spawnPointManager.spawnPointsActive.Length];
-			for (int i = 0; i < defaultSpawnPoints.Length; i++) {
-				defaultSpawnPoints [i] = true;
-			}
-
-			return defaultSpawnPoints;
+			return null;
 		}
 	}
 

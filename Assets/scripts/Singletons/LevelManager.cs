@@ -136,7 +136,6 @@ public class LevelManager : MonoBehaviour {
 	public void RespawnPlayers(){
 		Save ();
 		SceneManager.LoadScene (SceneManager.GetActiveScene().name);
-
 	}
 
 	public void SetNewSpawnPoint(){
