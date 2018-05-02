@@ -25,21 +25,21 @@ public class SceneLoader : MonoBehaviour {
 			loadScene = true;
 
 			loadingText.text = "Loading...";
-			StartCoroutine (LoadNewScene ());
+			LoadNewScene ();
 		}
 			
 		// pulse the transparency of the loading text.
 		loadingText.color = new Color(loadingText.color.r, loadingText.color.g, loadingText.color.b, Mathf.PingPong(Time.time, 1));
 	}
 
-	IEnumerator LoadNewScene() {
+	void LoadNewScene() {
 		// This line is only necessary because our scenes are so simple that they load too fast to read the "Loading..." text.
-		yield return new WaitForSeconds(3);
+		//yield return new WaitForSeconds(3);
 
 		// Start an asynchronous operation to load the scene that was passed to the LoadNewScene coroutine.
 		SaveLoadManager.DeleteSpawnPointsManagerSaveData();
 		SaveLoadManager.DeleteLevelManagerSaveData ();
-		AsyncOperation async = SceneManager.LoadSceneAsync(scene);
+		SceneManager.LoadScene(scene);
 
 		// While the asynchronous operation to load the new scene is not yet complete, continue waiting until it's done.
 		// while (!async.isDone) {

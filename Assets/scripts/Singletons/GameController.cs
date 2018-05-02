@@ -20,10 +20,6 @@ public class GameController : MonoBehaviour {
 			Destroy (gameObject);
 		}
 	}
-
-	void Start(){
-		levelManager = LevelManager.instance;
-	}
 	
 	void Update() {
 		if (p1AtTeleporter && p2AtTeleporter) {
@@ -34,10 +30,13 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void LoadNextLevel(){
+		levelManager = LevelManager.instance;
 		Scene currentScene = SceneManager.GetActiveScene();
 		string sceneName = currentScene.name;
 		if (levelManager != null) {
 			levelManager.DeleteSaveData ();
+		} else {
+			Debug.Log("level manager is null");
 		}
 
 		switch (sceneName){
@@ -56,9 +55,9 @@ public class GameController : MonoBehaviour {
 		case "Level 1-2":
 			SceneManager.LoadScene("Tutorial 3");
 			break;
-		case "Tutorial 3":
+		/*case "Tutorial 3":
 			SceneManager.LoadScene("Level 2-1");
-			break;
+			break;*/
 		default:
 			SceneManager.LoadScene("LoadingScreen");
 			break;

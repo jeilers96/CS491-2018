@@ -82,7 +82,10 @@ public class PauseMenu : MonoBehaviour {
 	public void LoadMainMenu(){
 		SceneManager.LoadScene ("MainMenu");
 	}
-
+		
+	public void LoadStartScreen() {
+		SceneManager.LoadScene ("LoadingScreen");
+	}
 	public void QuitGame(){
 		Debug.Log ("Quitting game...");
 		Application.Quit ();
