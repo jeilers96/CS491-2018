@@ -7,7 +7,7 @@ public class doorTrigger : MonoBehaviour {
 	public int btnsNeeded = 1;
 
 
-	public int btnsPressedCount = 0;
+	private int btnsPressedCount = 0;
 
 	public void Toggle(bool state) {
 		if(state) {
