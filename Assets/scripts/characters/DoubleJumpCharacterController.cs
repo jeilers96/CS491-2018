@@ -14,7 +14,7 @@ public class DoubleJumpCharacterController : ingameCharacter {
 		gameObject.name = "DoubleJumpCharacter";
 		base.Start();
 		rigid2D = GetComponent<Rigidbody2D>();
-		hasSecondJump = true;
+		hasSecondJump = false;
 	}
 
 	void Update () {
