@@ -1,12 +1,12 @@
 fileFormatVersion: 2
-guid: 5625a05adf52eac40a43a05e874e5d53
-timeCreated: 1519188001
+guid: 3d6c4a401381d44acb6683146970dfd3
+timeCreated: 1525814366
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: test_button_sprite_0
-    21300002: test_button_sprite_1
-    21300004: test_button_sprite_2
+    21300000: green_button_0
+    21300002: green_button_1
+    21300004: green_button_2
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -79,17 +79,27 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+  - buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: test_button_sprite_0
+      name: green_button_0
       rect:
         serializedVersion: 2
-        x: 37
+        x: 40
         y: 0
-        width: 176
-        height: 32
+        width: 168
+        height: 40
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -97,13 +107,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: test_button_sprite_1
+      name: green_button_1
       rect:
         serializedVersion: 2
-        x: 294
+        x: 288
         y: 0
         width: 176
-        height: 16
+        height: 24
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,12 +121,12 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: test_button_sprite_2
+      name: green_button_2
       rect:
         serializedVersion: 2
-        x: 552
+        x: 560
         y: 0
-        width: 176
+        width: 160
         height: 8
       alignment: 7
       pivot: {x: 0.5, y: 0}
