@@ -5,31 +5,46 @@ using UnityEngine;
 public class switchController : MonoBehaviour {
 	Animator anim;
 	public doorTrigger[] doorTrig;
-	// Use this for initialization
+	private bool isPressed = false;
+	private string lastColliderName = null;
+	private string colliderEnterName = null;
+	private string colliderExitName = null;
+
 	void Start () {
 		anim = GetComponent<Animator> ();
 	}
 	
-	void OnTriggerEnter2D() {
-		if (!anim.GetBool ("down")) {
-			foreach (doorTrigger trigger in doorTrig) {
+	void OnTriggerEnter2D(Collider2D col) {
+		colliderEnterName = col.gameObject.name;
 
-				trigger.Toggle (true);
+		if(!isPressed){
+			lastColliderName = colliderEnterName;
+			if (!anim.GetBool ("down")) {
+				foreach (doorTrigger trigger in doorTrig) {
+
+					trigger.Toggle (true);
+				}
+
+				isPressed = !isPressed;
 			}
+				
+			anim.SetBool("down",true);
 		}
-
-		anim.SetBool("down",true);
 	}
 	
-	void OnTriggerExit2D() {
-		if (anim.GetBool ("down")) {
-			foreach (doorTrigger trigger in doorTrig) {
+	void OnTriggerExit2D(Collider2D col) {
+		colliderExitName = col.gameObject.name;
 
-				trigger.Toggle (false);
+		if (lastColliderName == colliderExitName && isPressed) {
+			isPressed = !isPressed;
+			if (anim.GetBool ("down")) {
+				foreach (doorTrigger trigger in doorTrig) {
+
+					trigger.Toggle (false);
+				}
 			}
+
+			anim.SetBool("down",false);
 		}
-
-		anim.SetBool("down",false);
-
 	}
 }
