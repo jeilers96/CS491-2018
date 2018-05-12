@@ -55,9 +55,9 @@ public class GameController : MonoBehaviour {
 		case "Level 1-2":
 			SceneManager.LoadScene("Tutorial 3");
 			break;
-		/*case "Tutorial 3":
+		case "Tutorial 3":
 			SceneManager.LoadScene("Level 2-1");
-			break;*/
+			break;
 		default:
 			SceneManager.LoadScene("LoadingScreen");
 			break;
