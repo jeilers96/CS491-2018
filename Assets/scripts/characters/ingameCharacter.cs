@@ -191,7 +191,6 @@ public abstract class ingameCharacter : MonoBehaviour {
 	protected void OnTriggerEnter2D(Collider2D other){
 		if (other.gameObject.tag == "SpawnPoint") {
 			SPManager.playersInSpawnPoint++;
-			print ("Players in trigger " + SPManager.playersInSpawnPoint);
 			if (SPManager.playersInSpawnPoint == 2) {
 				SPManager.playersInSpawnPoint = 0;
 				levelManager.SetNewSpawnPoint ();
@@ -208,7 +207,6 @@ public abstract class ingameCharacter : MonoBehaviour {
 		if (other.gameObject.tag == "SpawnPoint") {
 			if (SPManager.playersInSpawnPoint != 0) {
 				SPManager.playersInSpawnPoint--;
-				print ("Players in trigger " + SPManager.playersInSpawnPoint);
 			}
 		}
 		

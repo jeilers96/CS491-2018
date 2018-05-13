@@ -15,6 +15,10 @@ public class LevelManagerEditor : Editor {
 		if (GUILayout.Button ("Delete Save Data")) {
 			levelManager.DeleteSaveData ();
 		}
+
+		if (GUILayout.Button ("Delete Game Save")) {
+			levelManager.DeleteGameSaveData ();
+		}
 	}
 }
 #endif

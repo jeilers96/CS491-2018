@@ -100,8 +100,7 @@ public class LevelManager : MonoBehaviour {
 			SpawnPointsTransform = GameObject.Find("SpawnPoints").transform;
 			SetSpawnPointPositions ();
 		}
-
-		SetCameraAndPlayerPositions ();
+			
 		if (retrieveSaveData) {
 			Load ();
 		}
@@ -109,6 +108,13 @@ public class LevelManager : MonoBehaviour {
 		if(GameObject.Find("GameController") != null) {
 			gameController = GameController.gameController;
 		}
+
+		if (gameController.loadSaveData) {
+			spawnPointIndex = gameController.savedSpawnPointIndex;
+			SetSpawnPointsFromSave ();
+		}
+
+		SetCameraAndPlayerPositions ();
 	}
 
 	/// <summary>
@@ -135,19 +141,30 @@ public class LevelManager : MonoBehaviour {
 
 	public void RespawnPlayers(){
 		Save ();
-		SceneManager.LoadScene (SceneManager.GetActiveScene().name);
+		gameController.ContinueGame ();
+		//SceneManager.LoadScene (SceneManager.GetActiveScene().name);
 	}
 
 	public void SetNewSpawnPoint(){
 		if (spawnPointIndex < spawnPoints.Count) {
 			spawnPointManager.spawnPointsActive [spawnPointIndex] = false;
 			spawnPointIndex++;
+			Save ();
 		} 
+	}
+
+	private void SetSpawnPointsFromSave(){
+		for (int i = 0; i < spawnPointIndex; i++) {
+			if (spawnPointIndex < spawnPoints.Count) {
+				spawnPointManager.spawnPointsActive [i] = false;
+			} 
+		}
 	}
 
 	public void Save(){
 		SaveLoadManager.SaveLevelManager (this);
 		spawnPointManager.Save ();
+		GameController.gameController.SaveGame (SceneManager.GetActiveScene ().buildIndex, spawnPointIndex);
 	}
 
 	public void Load(){
@@ -165,11 +182,15 @@ public class LevelManager : MonoBehaviour {
 		}
 	}
 
+	//also referenced in the level manager editor script
 	public void DeleteSaveData(){
 		SaveLoadManager.DeleteLevelManagerSaveData ();
 		SaveLoadManager.DeleteSpawnPointsManagerSaveData ();
-		print ("Deleted: " + SaveLoadManager.LevelManagerFilePath + "\n"
-			+ SaveLoadManager.SpawnPointManagerFilePath);
+	}
+
+	//only referenced in the level manager editor script
+	public void DeleteGameSaveData(){
+		SaveLoadManager.DeleteSaveGameManagerData ();
 	}
 
 	void SetSpawnPointPositions(){

@@ -23,8 +23,6 @@ public class SpawnPointManager : MonoBehaviour {
 			spawnPointsActive[i] = true;
 		}
 
-		//get all children and if their spawn point active is false, destroy the object or make them inactive
-
 		if (levelManager.retrieveSaveData) {
 			Load ();
 		}
@@ -35,7 +33,7 @@ public class SpawnPointManager : MonoBehaviour {
 	}
 
 	public void Load(){
-		bool[] tempSpawnPointsActive = SaveLoadManager.LoadSpawnPointsManager (this);
+		bool[] tempSpawnPointsActive = SaveLoadManager.LoadSpawnPointsManager ();
 		if (tempSpawnPointsActive != null) {
 			spawnPointsActive = tempSpawnPointsActive;
 			for (int i = 0; i < spawnPointsActive.Length; i++) {
@@ -43,8 +41,6 @@ public class SpawnPointManager : MonoBehaviour {
 					transform.GetChild (i).gameObject.SetActive (false);
 				}
 			}
-		} else {
-			print ("Did not load from file");
 		}
 	}
 }
